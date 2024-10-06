@@ -1,18 +1,12 @@
 var admin = require("firebase-admin");
 import { getMessaging } from "firebase-admin/messaging";
 
-// Fetch the service account key JSON file contents
 var serviceAccount = require("/home/xtan/.secrets/employeemanager-8fc51-firebase-adminsdk-26tfh-95845a107a.json");
 
-// Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  // The database URL depends on the location of the database
-  // databaseURL:
-  // "https://employeemanager-8fc51-default-rtdb.asia-southeast1.firebasedatabase.app/",
 });
 
-// As an admin, the app has access to read and write all data, regardless of Security Rules
 var db = admin.firestore();
 var ref = db.collection("fcmtokens");
 ref
