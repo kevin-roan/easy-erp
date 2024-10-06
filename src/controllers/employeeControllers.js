@@ -1,17 +1,39 @@
-const addNewEmployee = () => {
+const { Employee } = require("../models/employeeModel");
+
+const addNewEmployee = async (employeeData) => {
   try {
-    // create account with mongodb here
-  } catch (error) {
-    console.error(error);
+    const employee = new Employee(employeeData);
+    const savedEmployee = await employee.save();
+    if (savedEmployee) {
+      console.log("Added employee successfully");
+      return { status: true, message: "Added new employee" };
+    }
+  } catch (err) {
+    console.error("Error adding employee", err);
+    return { status: false, message: "Error adding employee" };
   }
 };
 
-const deleteEmployeeById = (id) => {
-  try {
-    // delete logic here
-  } catch (error) {
-    console.error(errro);
+const deleteEmployeeById = async (employeeId) => {
+  const deleteEmployee = await Employee.findByIdAndDelete(employeeId);
+  if (deleteEmployee) {
+    return { status: true, message: "Employee deleted successfully" };
+  } else {
+    return { status: false, message: "Error deleting employee" };
   }
 };
 
-module.exports = { addNewEmployee, deleteEmployee };
+const updateEmployee = async (employeeData) => {
+  const employeeId = employeeData.id;
+  const updatedEmployee = await Employee.findByIdAndUpdate(
+    employeeId,
+    employeeData,
+  );
+  if (updatedEmployee) {
+    return { status: true, message: "Employee updated successfully" };
+  } else {
+    return { status: false, messge: "Error updating employee" };
+  }
+};
+
+module.exports = { addNewEmployee, deleteEmployeeById, updateEmployee };

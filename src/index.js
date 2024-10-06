@@ -3,13 +3,12 @@ const express = require("express");
 const app = express();
 const port = 8000;
 const userRouter = require("./routes/userRoutes.js");
-const productCachingRoutes = require("./model/productCaching.js");
+const { connectDB } = require("./config/databaseConfig.js");
 
-app.use("/user", userRouter);
-app.use("/", productCachingRoutes);
-
-// caching
+app.use("/employee", userRouter);
+// todo build the routes
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
+  connectDB();
 });
