@@ -34,4 +34,13 @@ const deleteTask = async (taskId) => {
   }
 };
 
-module.exports = { assignTasktoEmployee, deleteTask };
+const viewAlltasks = async () => {
+  try {
+    const result = await Task.find();
+    return { status: true, result: result };
+  } catch (error) {
+    return { status: false, result: null, message: error };
+  }
+};
+
+module.exports = { assignTasktoEmployee, deleteTask, viewAlltasks };

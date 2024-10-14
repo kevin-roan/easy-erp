@@ -1,3 +1,5 @@
+// just to test firebase cloud messaging
+// todo; merge to notification route handlers
 var admin = require("firebase-admin");
 import { getMessaging } from "firebase-admin/messaging";
 
@@ -29,6 +31,7 @@ setTimeout(() => {
 }, 2000);
 
 const sendCloudMessagetoDevice = () => {
+  // random token for physical device
   const registrationToken =
     "d3-A8375RXiCAT_f5Xm_kP:APA91bEGj_03XOXuV0oiNADPs8Ux10S8tYysxSAvnXk24l7IPp5Y-Iut-BbvQFt0SV24Pc016SaRLL5_3qIfce4epcN73Gn1iUXE7Wa0t5sIpks8C02Af6UwRnDFTZfQC8Yuba66lusf";
 
