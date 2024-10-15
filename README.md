@@ -1,5 +1,5 @@
 - Erp software for human resource ( backend ) 
-- This is just a Minimal Viable Product ( MVP ) of the product.
+- This is just a Minimal Viable Product ( MVP ) of the actual product.
 - Frontend (React Native) https://github.com/kevin-roan/easy-ems.git
 - This repo will be archived in the future hence converting the whole project into mono-repo
 - Homepage https://easyerp.com
