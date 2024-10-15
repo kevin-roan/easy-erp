@@ -5,11 +5,13 @@ const {
 } = require("../controllers/taskController");
 const router = express.Router();
 
+// get all tasks
 router.get("/", async (req, res) => {
   const result = viewAlltasks();
   res.status(200).send(result);
 });
 
+// add new task
 router.post("/", async (req, res) => {
   const { taskData, employeeId } = req.body;
   try {

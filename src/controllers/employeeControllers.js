@@ -1,5 +1,14 @@
 const { Employee } = require("../models/employeeModel");
 
+const viewEmployees = async () => {
+  try {
+    const employees = await Employee.find({});
+    return { status: true, result: employees };
+  } catch (error) {
+    return { status: false, error: error.message };
+  }
+};
+
 const addNewEmployee = async (employeeData) => {
   try {
     const employee = new Employee(employeeData);
@@ -36,4 +45,9 @@ const updateEmployee = async (employeeData) => {
   }
 };
 
-module.exports = { addNewEmployee, deleteEmployeeById, updateEmployee };
+module.exports = {
+  addNewEmployee,
+  deleteEmployeeById,
+  updateEmployee,
+  viewEmployees,
+};

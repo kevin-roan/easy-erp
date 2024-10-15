@@ -3,9 +3,20 @@ const {
   addNewEmployee,
   deleteEmployeeById,
   updateEmployee,
+  viewEmployees,
 } = require("../controllers/employeeControllers");
 
 const router = express.Router();
+
+// view all employees
+router.get("/", async (req, res) => {
+  const response = await viewEmployees();
+  if (response.status) {
+    res.status(200).json(response);
+  } else {
+    res.status(400).json({ status: response.status, error: response.error });
+  }
+});
 
 // to add an employee
 router.post("/", async (req, res) => {
