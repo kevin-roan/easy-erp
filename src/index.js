@@ -12,3 +12,6 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
   connectDB();
 });
+
+//todo
+// work on add employees
