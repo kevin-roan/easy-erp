@@ -1,4 +1,5 @@
 const { Employee } = require("../models/employeeModel");
+const cls = require("cli-color");
 
 const viewEmployees = async () => {
   try {
@@ -10,7 +11,14 @@ const viewEmployees = async () => {
 };
 
 const addNewEmployee = async (employeeData) => {
+  const { employeeNumber } = employeeData;
   try {
+    const queryEmployee = await Employee.findOne({
+      employeeNumber: employeeNumber,
+    });
+    if (queryEmployee) {
+      return { status: false, message: "Employee already exists" };
+    }
     const employee = new Employee(employeeData);
     const savedEmployee = await employee.save();
     if (savedEmployee) {
@@ -24,11 +32,15 @@ const addNewEmployee = async (employeeData) => {
 };
 
 const deleteEmployeeById = async (employeeId) => {
-  const deleteEmployee = await Employee.findByIdAndDelete(employeeId);
-  if (deleteEmployee) {
-    return { status: true, message: "Employee deleted successfully" };
-  } else {
-    return { status: false, message: "Error deleting employee" };
+  try {
+    const deleteEmployee = await Employee.findByIdAndDelete(employeeId);
+    if (deleteEmployee) {
+      return { status: true, message: "Employee deleted successfully" };
+    } else {
+      return { status: false, message: "Error deleting employee" };
+    }
+  } catch (error) {
+    return { status: false, message: `Error deleting employee ${error}` };
   }
 };
 

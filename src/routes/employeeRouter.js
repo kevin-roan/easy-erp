@@ -1,4 +1,6 @@
 const express = require("express");
+const clc = require("cli-color");
+
 const {
   addNewEmployee,
   deleteEmployeeById,
@@ -20,7 +22,9 @@ router.get("/", async (req, res) => {
 
 // to add an employee
 router.post("/", async (req, res) => {
-  const { employeeData } = req.body;
+  console.log(clc.red("This is an error message!"));
+  console.log(req.body, "content body");
+  const employeeData = req.body;
   try {
     const result = await addNewEmployee(employeeData);
     res.status(201).send(result);
@@ -29,16 +33,24 @@ router.post("/", async (req, res) => {
   }
 });
 
-// to delete an employee
-
+// delete an employee by objectid
 router.delete("/", async (req, res) => {
   const { employeeId } = req.body;
+  console.log(clc.red("employee id", employeeId));
+
+  if (!employeeId) {
+    return res.status(400).json({ error: "employeeId is required" });
+  }
   try {
     const result = await deleteEmployeeById(employeeId);
-    res.status(204).send(result);
+    if (result.status) {
+      res.status(204).json({ message: result.message });
+    } else {
+      res.status(404).json({ message: "Employee not found" });
+    }
   } catch (error) {
     console.error(error);
-    res.status(400).send(error);
+    res.status(500).json({ error: error });
   }
 });
 
