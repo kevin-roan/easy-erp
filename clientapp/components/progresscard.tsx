@@ -49,14 +49,14 @@ const ProgressCard = () => {
         }}
         selected={formattedDate.toString()}
         markedDates={{
-          [formattedDate]: { marked: true },
+          [formattedDate]: { marked: true, selectedColor: "#8b74e3" },
         }}
         onCalendarToggled={() => Vibration.vibrate(40)}
         theme={{
           agendaDayTextColor: "yellow",
           agendaDayNumColor: "green",
           agendaTodayColor: "#6461F9",
-          agendaKnobColor: "#8B74E3",
+          agendaKnobColor: "#8b74e3",
         }}
       ></Agenda>
     </View>
@@ -82,7 +82,7 @@ const TaskCard = () => {
         </View>
       </View>
       <View style={styles.taskcard_info}>
-        <Text style={styles.taskcard_info_text}>1.Read a Book</Text>
+        <Text style={styles.taskcard_info_text}>1.Code Review</Text>
         <Text style={styles.taskcard_info_text}>2.Attend Meeting</Text>
         <Text style={styles.taskcard_info_text}>3.Submit Code</Text>
         <Text style={styles.taskcard_info_text}>4.Review</Text>

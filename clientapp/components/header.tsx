@@ -19,7 +19,9 @@ export default function Header() {
           Hi there! <Text style={styles.username}> {username},</Text>
         </Text>
       </View>
-      <SimpleLineIcons size={20} name="bell" />
+      <View>
+        <SimpleLineIcons size={20} name="bell" />
+      </View>
     </View>
   );
 }

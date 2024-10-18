@@ -32,6 +32,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="viewtasks"
         options={{
+          headerShown: false,
           title: "Upcoming",
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="level-up" color={color} />

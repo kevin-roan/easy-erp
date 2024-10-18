@@ -1,17 +1,18 @@
+import ViewTasksCart from "@/components/viewtaskscard";
 import { View, Text, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Tab() {
   return (
-    <View style={styles.container}>
-      <Text>Tab [Home|Settings]</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ViewTasksCart />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: "#F2F4F8",
   },
 });
