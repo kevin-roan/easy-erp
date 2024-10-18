@@ -1,6 +1,12 @@
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Vibration,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import Octicon from "@expo/vector-icons/Octicons";
-import { Agenda } from "react-native-calendars";
+import { Agenda, AgendaList } from "react-native-calendars";
 import Octicons from "@expo/vector-icons/Octicons";
 
 const ProgressCard = () => {
@@ -13,7 +19,7 @@ const ProgressCard = () => {
         <TaskCard />
         <ChartCard />
       </View>
-      <Text style={styles.cardHeading}>Task List</Text>
+      <Text style={styles.cardHeading}>Agenda</Text>
       <Agenda
         items={{
           [formattedDate]: [
@@ -23,14 +29,34 @@ const ProgressCard = () => {
               timeStart: "13:40",
               timeEnd: "15:40",
             },
+            {
+              name: "Work Event",
+              desc: "Town hall meeting online",
+              timeStart: "13:40",
+              timeEnd: "15:40",
+            },
+            {
+              name: "Work Event",
+              desc: "Town hall meeting online",
+              timeStart: "13:40",
+              timeEnd: "15:40",
+            },
           ],
         }}
+        showClosingKnob={true}
         renderItem={(item, firstItemInDay) => {
           return <AgendaCard agenda={item} />;
         }}
         selected={formattedDate.toString()}
         markedDates={{
           [formattedDate]: { marked: true },
+        }}
+        onCalendarToggled={() => Vibration.vibrate(40)}
+        theme={{
+          agendaDayTextColor: "yellow",
+          agendaDayNumColor: "green",
+          agendaTodayColor: "#6461F9",
+          agendaKnobColor: "#8B74E3",
         }}
       ></Agenda>
     </View>
@@ -85,14 +111,14 @@ const ChartCard = () => {
 
 const AgendaCard = ({ agenda }) => {
   return (
-    <View style={styles.agendacard}>
+    <TouchableOpacity style={styles.agendacard}>
       <Text style={styles.agendacard_title}>{agenda.name}</Text>
       <Text style={styles.agendacard_desc}>{agenda.desc}</Text>
       <Text style={styles.agendacard_time_wrapper}>
         <Octicons name="clock" size={13} /> {agenda.timeStart} -{" "}
         {agenda.timeEnd}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -168,10 +194,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   agendacard: {
-    backgroundColor: "#FFEFF5",
-    borderRadius: 24,
+    backgroundColor: "#fff",
+    borderRadius: 13,
     padding: 10,
     margin: 20,
+    borderWidth: 0.5,
+    borderColor: "#E4E2FF",
+    borderBottomLeftRadius: 0,
   },
   agendacard_title: {
     fontSize: 14,
