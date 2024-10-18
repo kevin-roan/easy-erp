@@ -1,17 +1,20 @@
 import Header from "@/components/header";
-import { View, Text, StyleSheet } from "react-native";
+import ProgressCard from "@/components/progresscard";
+import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Tab() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header />
-    </View>
+      <ProgressCard />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#CABFFD",
+    backgroundColor: "#F2F4F8",
   },
 });

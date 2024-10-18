@@ -16,7 +16,7 @@ export default function Header() {
           style={styles.userAvatar}
         />
         <Text style={styles.heading_text}>
-          Hi there! <Text style={styles.username}> {username}</Text>
+          Hi there! <Text style={styles.username}> {username},</Text>
         </Text>
       </View>
       <SimpleLineIcons size={20} name="bell" />
@@ -31,10 +31,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     margin: 10,
     borderRadius: 20,
-    elevation: 4,
     shadowColor: "black",
-    shadowOpacity: 3,
-    shadowRadius: 20,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -49,7 +46,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginLeft: 10,
     color: "#010101",
-    fontFamily: "Poppins-Black",
+    fontFamily: "Poppins",
   },
 
   greetingcontainer: {
@@ -57,6 +54,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   username: {
-    fontFamily: "Exo",
+    fontFamily: "PlayWrite",
   },
 });

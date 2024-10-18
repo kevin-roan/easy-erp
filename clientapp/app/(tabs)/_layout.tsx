@@ -20,6 +20,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
+          headerShown: false,
           headerStyle: {},
           headerTitleAlign: "center",
           title: "Current Tasks",

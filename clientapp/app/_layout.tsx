@@ -11,7 +11,7 @@ SplashScreen.preventAutoHideAsync();
 export default function Layout() {
   const [loaded, error] = useFonts({
     Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
-    Exo: require("../assets/fonts/Exo2-Italic-VariableFont_wght.ttf"),
+    PlayWrite: require("../assets/fonts/PlaywriteGBS-VariableFont_wght.ttf"),
   });
   useEffect(() => {
     if (loaded || error) {
@@ -28,7 +28,13 @@ export default function Layout() {
         <Stack>
           <Stack.Screen
             name="(tabs)"
-            options={{ headerShown: false, statusBarStyle: "dark" }}
+            options={{
+              headerShown: false,
+              statusBarStyle: "dark",
+              statusBarTranslucent: true,
+              statusBarAnimation: "fade",
+              statusBarColor: "#F2F4F8",
+            }}
           />
         </Stack>
       </PaperProvider>
