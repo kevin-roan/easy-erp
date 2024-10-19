@@ -34,22 +34,19 @@ router.post("/", async (req, res) => {
 });
 
 // delete an employee by objectid
-router.delete("/", async (req, res) => {
-  const { employeeId } = req.body;
-  console.log(clc.red("employee id", employeeId));
-
+router.delete("/:employeeId", async (req, res) => {
+  const employeeId = req.params.employeeId;
   if (!employeeId) {
     return res.status(400).json({ error: "employeeId is required" });
   }
   try {
     const result = await deleteEmployeeById(employeeId);
     if (result.status) {
-      res.status(204).json({ message: result.message });
+      res.status(200).json({ message: result.message });
     } else {
-      res.status(404).json({ message: "Employee not found" });
+      res.status(202).json(result);
     }
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: error });
   }
 });

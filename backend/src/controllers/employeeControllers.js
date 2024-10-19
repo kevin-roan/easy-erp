@@ -37,7 +37,10 @@ const deleteEmployeeById = async (employeeId) => {
     if (deleteEmployee) {
       return { status: true, message: "Employee deleted successfully" };
     } else {
-      return { status: false, message: "Error deleting employee" };
+      return {
+        status: false,
+        message: "Error deleting employee, does not exist",
+      };
     }
   } catch (error) {
     return { status: false, message: `Error deleting employee ${error}` };
