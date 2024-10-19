@@ -55,10 +55,11 @@ router.delete("/", async (req, res) => {
 });
 
 // to update employee details
-router.patch("/", async (req, res) => {
-  const { employeeData } = req.body;
+router.patch("/:employeeId", async (req, res) => {
+  const employeeId = req.params.employeeId;
+  const updatedEmployeeData = req.body;
   try {
-    const result = await updateEmployee(employeeData);
+    const result = await updateEmployee(employeeId, updatedEmployeeData);
     res.status(204).send(result);
   } catch (error) {
     res.status(400).send(error);
