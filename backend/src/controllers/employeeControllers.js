@@ -44,12 +44,12 @@ const deleteEmployeeById = async (employeeId) => {
   }
 };
 
-const updateEmployee = async (employeeData) => {
-  const employeeId = employeeData.id;
-  const updatedEmployee = await Employee.findByIdAndUpdate(
-    employeeId,
-    employeeData,
+const updateEmployee = async (employeeId, updatedEmployeeData) => {
+  const updatedEmployee = await Employee.updateOne(
+    { _id: employeeId },
+    { $set: updatedEmployeeData },
   );
+
   if (updatedEmployee) {
     return { status: true, message: "Employee updated successfully" };
   } else {
