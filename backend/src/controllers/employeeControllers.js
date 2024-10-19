@@ -1,5 +1,4 @@
 const { Employee } = require("../models/employeeModel");
-const cls = require("cli-color");
 
 const viewEmployees = async () => {
   try {
