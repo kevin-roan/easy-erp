@@ -3,8 +3,7 @@ const mongoose = require("mongoose");
 const taskSchema = new mongoose.Schema(
   {
     taskName: { type: String, required: true },
-    taskAssignedTo: { type: Object, required: true },
-    deadLine: { type: Date, required: false },
+    taskAssignedTo: { type: Array, required: true },
     isAccepted: { type: Boolean, required: true, default: false },
     isCompleted: { type: Boolean, required: true, default: false },
   },
@@ -13,7 +12,7 @@ const taskSchema = new mongoose.Schema(
 
 const Task = mongoose.model("Task", taskSchema);
 
-module.exports = { Task };
+module.exports = Task;
 
 // For Redundency
 // taskAssignedTo: { type: mongoose.Schema.Types.ObjectId, ref: "Employee", required: true },  // Reference to Employee
