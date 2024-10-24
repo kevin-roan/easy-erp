@@ -44,7 +44,7 @@ if (getRNMinorVersion() >= 75) {
   }
 }
 
-rootProject.name = 'clientapp'
+rootProject.name = 'easy-erp'
 
 dependencyResolutionManagement {
   versionCatalogs {
