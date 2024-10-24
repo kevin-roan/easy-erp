@@ -10,7 +10,7 @@ import {
 import { useState, useEffect } from "react";
 import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
 
-const AcceptTaskCard = ({ title, desc, id }) => {
+const AcceptTaskCard = ({ title, desc, id, handleAccept }) => {
   const height = useSharedValue(100);
 
   useEffect(() => {
@@ -30,13 +30,13 @@ const AcceptTaskCard = ({ title, desc, id }) => {
         </View>
       </View>
       <View style={styles.buttoncontainer}>
-        <CardButton id={id} />
+        <CardButton id={id} handleAccept={handleAccept} />
       </View>
     </Animated.View>
   );
 };
 
-const CardButton = () => {
+const CardButton = ({ handleAccept, id }) => {
   const [isAccepted, setIsAccepted] = useState(false);
 
   const handleTask = async () => {
@@ -44,6 +44,7 @@ const CardButton = () => {
       try {
         // await updateTasks(id);
         setIsAccepted(true);
+        handleAccept(id);
         Vibration.vibrate(50);
       } catch (error) {
         console.error("Error updating task:", error);
