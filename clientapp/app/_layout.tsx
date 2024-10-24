@@ -1,6 +1,9 @@
 import { Stack } from "expo-router/stack";
 import { PaperProvider } from "react-native-paper";
+import { BlurView } from "expo-blur";
 import { StatusBar } from "expo-status-bar";
+import { StyleSheet } from "react-native";
+import { Text } from "react-native";
 // font configurations
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -21,19 +24,44 @@ export default function Layout() {
   if (!loaded && error) {
     return null;
   }
+
+  const headerStyles = {
+    headerShown: false,
+    statusBarStyle: "dark",
+    statusBarTranslucent: true,
+    statusBarAnimation: "fade",
+    statusBarColor: "#F2F4F8",
+  };
   return (
     <>
       <PaperProvider>
         <StatusBar style="light" backgroundColor="red" />
         <Stack>
+          <Stack.Screen name="(tabs)" options={headerStyles} />
           <Stack.Screen
-            name="(tabs)"
+            name="screens/view_notifications"
             options={{
-              headerShown: false,
-              statusBarStyle: "dark",
-              statusBarTranslucent: true,
-              statusBarAnimation: "fade",
-              statusBarColor: "#F2F4F8",
+              headerShown: true,
+              statusBarTranslucent: headerStyles.statusBarTranslucent,
+              statusBarAnimation: "slide",
+              statusBarColor: "#F7F7F7",
+              headerBackground: () => (
+                <BlurView
+                  tint="light"
+                  intensity={100}
+                  style={[
+                    StyleSheet.absoluteFill,
+                    { backgroundColor: "#F2F2F6" },
+                  ]}
+                />
+              ),
+              statusBarStyle: headerStyles.statusBarStyle,
+              headerTitleAlign: "center",
+              headerTitle: () => (
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                  Notifications
+                </Text>
+              ),
             }}
           />
         </Stack>
