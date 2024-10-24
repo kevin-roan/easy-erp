@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "clientapp",
+    "name": "easy-erp",
     "slug": "clientapp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,13 +13,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kevinroan.erpsoftware"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.kevinroan.erpsoftware"
     },
     "web": {
       "bundler": "metro",
