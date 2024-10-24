@@ -7,7 +7,12 @@ import { Text } from "react-native";
 // font configurations
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { Provider } from "react-redux";
+
+import { store, persistor } from "../redux/store/store.js";
 import { useEffect } from "react";
+
+import { PersistGate } from "redux-persist/integration/react";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -34,38 +39,40 @@ export default function Layout() {
   };
   return (
     <>
-      <PaperProvider>
-        <StatusBar style="light" backgroundColor="red" />
-        <Stack>
-          <Stack.Screen name="(tabs)" options={headerStyles} />
-          <Stack.Screen
-            name="screens/view_notifications"
-            options={{
-              headerShown: true,
-              statusBarTranslucent: headerStyles.statusBarTranslucent,
-              statusBarAnimation: "slide",
-              statusBarColor: "#F7F7F7",
-              headerBackground: () => (
-                <BlurView
-                  tint="light"
-                  intensity={100}
-                  style={[
-                    StyleSheet.absoluteFill,
-                    { backgroundColor: "#F2F2F6" },
-                  ]}
-                />
-              ),
-              statusBarStyle: headerStyles.statusBarStyle,
-              headerTitleAlign: "center",
-              headerTitle: () => (
-                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                  Notifications
-                </Text>
-              ),
-            }}
-          />
-        </Stack>
-      </PaperProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <StatusBar style="light" backgroundColor="red" />
+          <Stack>
+            <Stack.Screen name="(tabs)" options={headerStyles} />
+            <Stack.Screen
+              name="screens/view_notifications"
+              options={{
+                headerShown: true,
+                statusBarTranslucent: headerStyles.statusBarTranslucent,
+                statusBarAnimation: "slide",
+                statusBarColor: "#F7F7F7",
+                headerBackground: () => (
+                  <BlurView
+                    tint="light"
+                    intensity={100}
+                    style={[
+                      StyleSheet.absoluteFill,
+                      { backgroundColor: "#F2F2F6" },
+                    ]}
+                  />
+                ),
+                statusBarStyle: headerStyles.statusBarStyle,
+                headerTitleAlign: "center",
+                headerTitle: () => (
+                  <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                    Notifications
+                  </Text>
+                ),
+              }}
+            />
+          </Stack>
+        </PersistGate>
+      </Provider>
     </>
   );
 }
