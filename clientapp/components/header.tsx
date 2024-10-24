@@ -1,8 +1,22 @@
-import { StyleSheet, Image, Text, View } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Text,
+  View,
+  Vibration,
+} from "react-native";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
+import { useNavigation } from "expo-router";
 
 export default function Header() {
   const username = "Kevin Roan";
+  const navigation = useNavigation();
+
+  const handleNavigation = () => {
+    navigation.navigate("screens/view_notifications");
+    Vibration.vibrate(50);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.greetingcontainer}>
@@ -19,9 +33,9 @@ export default function Header() {
           Hi there! <Text style={styles.username}> {username},</Text>
         </Text>
       </View>
-      <View>
+      <TouchableOpacity onPress={handleNavigation}>
         <SimpleLineIcons size={20} name="bell" />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }

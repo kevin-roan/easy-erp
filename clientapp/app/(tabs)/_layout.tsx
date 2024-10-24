@@ -42,6 +42,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="chatroom"
         options={{
+          headerShown: false,
           title: "Chats",
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="wechat" color={color} />
