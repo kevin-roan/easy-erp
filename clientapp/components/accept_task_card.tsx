@@ -9,16 +9,18 @@ import {
 } from "react-native";
 import { useState, useEffect } from "react";
 import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
+import { useDispatch } from "react-redux";
+import { updateTaskById } from "@/redux/reducers/taskSlice";
 
-const AcceptTaskCard = ({ title, desc, id, handleAccept }) => {
-  const height = useSharedValue(100);
+const AcceptTaskCard = ({ title, desc, id }) => {
+  const paddingBottom = useSharedValue(10);
 
   useEffect(() => {
-    height.value = withSpring(height.value + 20);
+    paddingBottom.value = withSpring(paddingBottom.value + 10);
   }, []);
 
   return (
-    <Animated.View style={[styles.container, { height }]}>
+    <Animated.View style={[styles.container, { paddingBottom }]} key={id}>
       <View style={{ flexDirection: "row", alignItems: "stretch", gap: 20 }}>
         <Image
           source={require("../assets/images/dashboard.png")}
@@ -30,21 +32,21 @@ const AcceptTaskCard = ({ title, desc, id, handleAccept }) => {
         </View>
       </View>
       <View style={styles.buttoncontainer}>
-        <CardButton id={id} handleAccept={handleAccept} />
+        <CardButton id={id} />
       </View>
     </Animated.View>
   );
 };
 
-const CardButton = ({ handleAccept, id }) => {
+const CardButton = ({ id }) => {
   const [isAccepted, setIsAccepted] = useState(false);
+  const dispatch = useDispatch();
 
   const handleTask = async () => {
     if (!isAccepted) {
       try {
-        // await updateTasks(id);
         setIsAccepted(true);
-        handleAccept(id);
+        dispatch(updateTaskById(id));
         Vibration.vibrate(50);
       } catch (error) {
         console.error("Error updating task:", error);

@@ -1,46 +1,38 @@
 import AcceptTaskCard from "@/components/accept_task_card";
 import { ScrollView, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { fetchTasksAll, getTasks } from "@/redux/reducers/taskSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function Tab() {
-  const [tasks, setTasks] = useState([]);
-  // this will fetch all the docs
-  useEffect(() => {
-    axios
-      .get("http://192.168.0.198:8000/api/v1/tasks")
-      .then((response) => {
-        setTasks(response.data.result);
-      })
-      .catch((error) => console.error("Error fetching data", error));
-  }, []);
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.tasks.value); // Access the tasks array from the state
+  const filteredTasks = useSelector((state) =>
+    state.tasks.value.filter((task) => !task.isAccepted),
+  );
+  const status = useSelector((state) => state.tasks.status); // Access the status (loading, succeeded, etc.)
+  const error = useSelector((state) => state.tasks.error); // Access any error messages
+  console.log(status, error, "Error fetching data");
 
-  // this will update the document,
-  // for these business logics, i need to create redux reducers seperatly
-  const handleAccept = (id) => {
-    axios
-      .patch(`http://192.168.0.198:8000/api/v1/tasks/${id}`, {
-        isAccepted: true,
-      })
-      .then((response) => {
-        console.log("response handleaccept");
-      })
-      .catch((error) => console.error("failed to accept task", error));
-  };
+  useEffect(() => {
+    // this will trigger the thunk middleware for fetching the taks from api
+    dispatch(fetchTasksAll());
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.container_heading}>Upcoming Tasks</Text>
       <ScrollView style={styles.cards_wrapper}>
-        {tasks.map((task) => (
-          <AcceptTaskCard
-            title={task.taskName}
-            desc={task.taskDesc}
-            id={task._id}
-            handleAccept={handleAccept}
-          />
-        ))}
+        {status == "succeeded" &&
+          filteredTasks?.map((task) => (
+            <AcceptTaskCard
+              title={task.taskName}
+              desc={task.taskDesc}
+              id={task._id}
+            />
+          ))}
       </ScrollView>
     </SafeAreaView>
   );
