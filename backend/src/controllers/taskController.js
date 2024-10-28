@@ -55,6 +55,7 @@ const updateTask = async (taskId, updatedTaskData) => {
     const result = await Task.findByIdAndUpdate(
       { _id: taskId },
       { $set: updatedTaskData },
+      { new: true }, // returns the updated document
     );
     if (result) {
       return { status: true, message: "Updated Tasks", result: result };

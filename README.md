@@ -14,3 +14,5 @@
     5. Socket IO
     6. Typescript/Javascript
     7. MonogDB
+    8. 0Auth
+    9. JWT

@@ -14,7 +14,6 @@ export default function Tab() {
   );
   const status = useSelector((state) => state.tasks.status); // Access the status (loading, succeeded, etc.)
   const error = useSelector((state) => state.tasks.error); // Access any error messages
-  console.log(status, error, "Error fetching data");
 
   useEffect(() => {
     // this will trigger the thunk middleware for fetching the taks from api

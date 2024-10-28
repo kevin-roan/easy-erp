@@ -22,6 +22,8 @@ router.get("/", async (req, res) => {
   }
 });
 
+// get all tasks that are not accepted
+
 // add new task
 router.post("/", async (req, res) => {
   const taskData = req.body;
@@ -64,7 +66,10 @@ router.get("/employee/:employeeId", async (req, res) => {
 router.patch("/:taskId", async (req, res) => {
   const taskId = req.params.taskId;
   const updatedData = req.body;
-  console.log(updatedData, "jsondata updated");
+  if (Object.keys(updatedData).length === 0) {
+    // if no data is provided,
+    return res.status(404).json({ status: false, error: "No data provided" });
+  }
   try {
     const result = await updateTask(taskId, updatedData);
     if (result.status) {
