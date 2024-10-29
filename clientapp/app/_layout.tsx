@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 
 import { store, persistor } from "../redux/store/store.js";
 import { useEffect } from "react";
+import { Auth0Provider } from "react-native-auth0";
 
 import { PersistGate } from "redux-persist/integration/react";
 
@@ -40,38 +41,43 @@ export default function Layout() {
   return (
     <>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <StatusBar style="light" backgroundColor="red" />
-          <Stack>
-            <Stack.Screen name="(tabs)" options={headerStyles} />
-            <Stack.Screen
-              name="screens/view_notifications"
-              options={{
-                headerShown: true,
-                statusBarTranslucent: headerStyles.statusBarTranslucent,
-                statusBarAnimation: "slide",
-                statusBarColor: "#F7F7F7",
-                headerBackground: () => (
-                  <BlurView
-                    tint="light"
-                    intensity={100}
-                    style={[
-                      StyleSheet.absoluteFill,
-                      { backgroundColor: "#F2F2F6" },
-                    ]}
-                  />
-                ),
-                statusBarStyle: headerStyles.statusBarStyle,
-                headerTitleAlign: "center",
-                headerTitle: () => (
-                  <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                    Notifications
-                  </Text>
-                ),
-              }}
-            />
-          </Stack>
-        </PersistGate>
+        <Auth0Provider
+          domain={"dev-e7uxuudwsqqup47u.us.auth0.com"}
+          clientId={"oW2hpDaZPHvlW0ZIMHNT13Jz7wLqtfBT"}
+        >
+          <PersistGate loading={null} persistor={persistor}>
+            <StatusBar style="light" backgroundColor="red" />
+            <Stack>
+              <Stack.Screen name="(tabs)" options={headerStyles} />
+              <Stack.Screen
+                name="screens/view_notifications"
+                options={{
+                  headerShown: true,
+                  statusBarTranslucent: headerStyles.statusBarTranslucent,
+                  statusBarAnimation: "slide",
+                  statusBarColor: "#F7F7F7",
+                  headerBackground: () => (
+                    <BlurView
+                      tint="light"
+                      intensity={100}
+                      style={[
+                        StyleSheet.absoluteFill,
+                        { backgroundColor: "#F2F2F6" },
+                      ]}
+                    />
+                  ),
+                  statusBarStyle: headerStyles.statusBarStyle,
+                  headerTitleAlign: "center",
+                  headerTitle: () => (
+                    <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                      Notifications
+                    </Text>
+                  ),
+                }}
+              />
+            </Stack>
+          </PersistGate>
+        </Auth0Provider>
       </Provider>
     </>
   );

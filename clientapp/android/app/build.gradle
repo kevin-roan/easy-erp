@@ -111,6 +111,9 @@ android {
 
     namespace 'com.kevinroan.erpsoftware'
     defaultConfig {
+// @generated begin react-native-auth0-manifest-placeholder - expo prebuild (DO NOT MODIFY) sync-102fbb750c05e07d32017aa087890d6f252f266c
+manifestPlaceholders = [auth0Domain: "dev-e7uxuudwsqqup47u.us.auth0.com", auth0Scheme: "com.kevinroan.erpsoftware.auth0"]
+// @generated end react-native-auth0-manifest-placeholder
         applicationId 'com.kevinroan.erpsoftware'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
