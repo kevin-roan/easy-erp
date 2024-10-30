@@ -38,6 +38,7 @@ export default function Layout() {
     statusBarAnimation: "fade",
     statusBarColor: "#F2F4F8",
   };
+
   return (
     <>
       <Provider store={store}>
@@ -48,6 +49,7 @@ export default function Layout() {
           <PersistGate loading={null} persistor={persistor}>
             <StatusBar style="light" backgroundColor="red" />
             <Stack>
+              <Stack.Screen name="index" options={headerStyles} />
               <Stack.Screen name="(tabs)" options={headerStyles} />
               <Stack.Screen
                 name="screens/view_notifications"

@@ -33,7 +33,7 @@ export const updateTaskById = createAsyncThunk(
 export const tasksSlice = createSlice({
   name: "tasks",
   initialState: {
-    value: [],
+    value: [""],
     status: "idle", // Can be 'idle', 'loading', 'succeeded', 'failed'
     error: null,
   },
