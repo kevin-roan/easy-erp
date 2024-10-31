@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 
 import { store, persistor } from "../redux/store/store.js";
 import { useEffect } from "react";
-import { Auth0Provider } from "react-native-auth0";
+import { Auth0Provider, useAuth0 } from "react-native-auth0";
 
 import { PersistGate } from "redux-persist/integration/react";
 
@@ -22,6 +22,9 @@ export default function Layout() {
     Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
     PlayWrite: require("../assets/fonts/PlaywriteGBS-VariableFont_wght.ttf"),
   });
+
+  const { user } = useAuth0;
+  console.log("check user", user);
   useEffect(() => {
     if (loaded || error) {
       SplashScreen.hideAsync();

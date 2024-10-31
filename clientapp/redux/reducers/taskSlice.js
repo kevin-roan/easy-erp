@@ -58,3 +58,5 @@ export const tasksSlice = createSlice({
 
 export const { getTasks } = tasksSlice.actions;
 export default tasksSlice.reducer;
+// todo;
+// move thunk logics to seperate file

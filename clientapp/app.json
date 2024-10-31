@@ -33,7 +33,9 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/SpaceMono-Regular.ttf"]
+          "fonts": [
+            "./assets/fonts/SpaceMono-Regular.ttf"
+          ]
         }
       ],
       [
@@ -42,7 +44,8 @@
           "domain": "dev-e7uxuudwsqqup47u.us.auth0.com",
           "clientId": "YOUR_AUTH0_CLIENT_ID"
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
