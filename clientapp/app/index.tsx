@@ -3,9 +3,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TouchableOpacity, Alert, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth0 } from "react-native-auth0";
+import * as AuthSession from "expo-auth-session";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserDataFromStorage } from "@/redux/reducers/employeeSlice";
+import axios from "axios";
 import * as SecureStore from "expo-secure-store";
+
+// todo
+// expo browser is installed, should use native browser instead of thrid party one
 
 const Login = () => {
   const { getCredentials, authorize, user } = useAuth0();
@@ -15,44 +20,57 @@ const Login = () => {
   // then store the secure acceestoken inside secure store.
   // the access token should sent to the server for matching the user.
 
-  const verifyUserWithServer = async () => {
-    try {
-      const response = await getCredentials();
-      if (response?.accessToken) {
-        // await AsyncStorage.setItem("accessToken", response.accessToken);
-        async function save(key, value) {
-          await SecureStore.setItemAsync(key, value);
-        }
-        save("acessToken", response.accessToken);
-        setTimeout(async () => {
-          console.log(await SecureStore.getItemAsync("acessToken"));
-        }, 3000);
-      }
-    } catch (error) {
-      Alert.alert(error);
-      console.log(error, "Error fetching data");
-    }
+  const ludan = async () => {
+    const result = await getCredentials();
+    console.log("result", result);
   };
+  ludan();
 
-  useEffect(() => {
-    fetchUserDataFromStorage();
-    const initialize = async () => {
-      const result = await AsyncStorage.getItem("accessToken");
-      if (!result) {
-        await verifyUserWithServer();
+  const verifyUserWithServer = async (accessToken) => {
+    console.log(accessToken);
+    if (accessToken) {
+      await SecureStore.setItemAsync("accessToken", accessToken);
+
+      try {
+        const result = await axios.get("http://192.168.0.198:8000/validate", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        console.log("response", result);
+      } catch (error) {
+        console.error("Error:", error);
       }
-    };
-    initialize();
-  }, []);
-
+    }
+  }; //
+  // useEffect(() => {
+  //   fetchUserDataFromStorage();
+  //   const initialize = async () => {
+  //     const result = await AsyncStorage.getItem("accessToken");
+  //     if (!result) {
+  //       await verifyUserWithServer();
+  //     }
+  //   };
+  //   initialize();
+  // }, []);
+  //
   const handleSignIn = async () => {
     try {
-      await authorize().then(() => {
-        console.log("authentcation sucess");
-        verifyUserWithServer();
+      const authResult = await AuthSession.startAsync({
+        authUrl:
+          `https://YOUR_AUTH0_DOMAIN/authorize?` +
+          `client_id=YOUR_CLIENT_ID` +
+          `&response_type=token` +
+          `&redirect_uri=${AuthSession.makeRedirectUri({ useProxy: true })}` +
+          `&audience=YOUR_API_IDENTIFIER` + // <- Specify your API identifier here
+          `&scope=openid profile email`, // <- Include other scopes you need
       });
-    } catch (e) {
-      console.log(e);
+
+      if (authResult?.params?.access_token) {
+        verifyUserWithServer(authResult.params.access_token);
+      }
+    } catch (error) {
+      console.error("Error during authorization", error);
     }
   };
 

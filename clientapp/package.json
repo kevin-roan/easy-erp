@@ -19,6 +19,7 @@
     "@reduxjs/toolkit": "^2.3.0",
     "axios": "^1.7.7",
     "expo": "~51.0.28",
+    "expo-auth-session": "~5.5.2",
     "expo-blur": "~13.0.2",
     "expo-font": "~12.0.10",
     "expo-linking": "~6.3.1",
