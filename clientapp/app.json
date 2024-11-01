@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "erpsoftware",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -40,13 +40,15 @@
         "react-native-auth0",
         {
           "domain": "dev-e7uxuudwsqqup47u.us.auth0.com",
-          "clientId": "oW2hpDaZPHvlW0ZIMHNT13Jz7wLqtfBT"
+          "clientId": "oW2hpDaZPHvlW0ZIMHNT13Jz7wLqtfBT",
+          "customScheme": "erpsoftware"
         }
       ],
       "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "owner": "kevinroan"
   }
 }

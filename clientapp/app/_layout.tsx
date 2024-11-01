@@ -23,8 +23,6 @@ export default function Layout() {
     PlayWrite: require("../assets/fonts/PlaywriteGBS-VariableFont_wght.ttf"),
   });
 
-  const { user } = useAuth0;
-  console.log("check user", user);
   useEffect(() => {
     if (loaded || error) {
       SplashScreen.hideAsync();

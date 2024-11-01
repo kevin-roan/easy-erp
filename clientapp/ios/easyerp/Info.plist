@@ -27,7 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>myapp</string>
+          <string>erpsoftware</string>
           <string>com.kevinroan.erpsoftware</string>
         </array>
       </dict>
