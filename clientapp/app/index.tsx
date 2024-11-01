@@ -1,11 +1,29 @@
 import { useAuth0, Auth0Provider } from "react-native-auth0";
 import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import * as SecureStore from "expo-secure-store";
 import Constants from "expo-constants";
+import { useEffect } from "react";
 
 const customScheme = "com.kevinroan.erpsoftware.auth0";
 
 const Home = () => {
   const { authorize, clearSession, user, error, getCredentials } = useAuth0();
+
+  useEffect(() => {
+    const storeAccessToken = async () => {
+      const credentials = await getCredentials();
+      const accessToken = credentials?.accessToken;
+
+      // Store the access token only if it exists
+      if (accessToken) {
+        await SecureStore.setItemAsync("accessToken", accessToken);
+      }
+    };
+
+    if (user) {
+      storeAccessToken();
+    }
+  }, [user]);
 
   const onLogin = async () => {
     try {
