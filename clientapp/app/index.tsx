@@ -11,6 +11,9 @@ const Login = () => {
   const { getCredentials, authorize, user } = useAuth0();
 
   // console.log("check user", user);
+  // after user authentication, check if the user match with the server, (email). if yes,
+  // then store the secure acceestoken inside secure store.
+  // the access token should sent to the server for matching the user.
 
   const verifyUserWithServer = async () => {
     try {
@@ -20,6 +23,10 @@ const Login = () => {
         async function save(key, value) {
           await SecureStore.setItemAsync(key, value);
         }
+        save("acessToken", response.accessToken);
+        setTimeout(async () => {
+          console.log(await SecureStore.getItemAsync("acessToken"));
+        }, 3000);
       }
     } catch (error) {
       Alert.alert(error);
