@@ -45,7 +45,7 @@ export default function Layout() {
       <Provider store={store}>
         <Auth0Provider
           domain={"dev-e7uxuudwsqqup47u.us.auth0.com"}
-          clientId={"oW2hpDaZPHvlW0ZIMHNT13Jz7wLqtfBT"}
+          clientId={"m4NE30FRU13LzkYeC4XpFyZxnH6PJH1r"}
         >
           <PersistGate loading={null} persistor={persistor}>
             <StatusBar style="light" backgroundColor="red" />
