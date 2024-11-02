@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
-app.use(auth(config));
+// app.use(auth(config));
 
 // =============================== MIDDLEWARES END ======================================
 
@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
 // app.use("/api/v1/tasks", requiresAuth(), taskRouter);
 // todo build the routes
 
-app.use("/api/v1/userprofile", jwtCheck, userRouter);
+app.use("/api/v1/user", jwtCheck, userRouter);
 app.use("/api/v1/organization", organizationRouter);
 app.use("/api/v1/employee", jwtCheck, empolyeeRouter);
 app.use("/api/v1/tasks", jwtCheck, taskRouter);

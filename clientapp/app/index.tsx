@@ -31,6 +31,7 @@ const Home = () => {
         {
           scope: "openid profile email",
           audience: "http://easyerp.com/api/v1/tasks",
+          // fk this, hard to embed email into the acesstoken
         },
         {
           customScheme: customScheme,
@@ -55,13 +56,19 @@ const Home = () => {
 
   const onCallAPI = async () => {
     const accessToken = (await getCredentials()).accessToken;
+    const email = user?.email;
     console.log("accesstoken", accessToken);
-    const apiResponse = await fetch(`http://192.168.0.198:8000/api/v1/tasks`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    Alert.alert(await apiResponse.text());
+    if (email && accessToken) {
+      const apiResponse = await fetch(
+        `http://192.168.0.198:8000/api/v1/user?email=${encodeURIComponent(email)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      console.log(await apiResponse.text());
+    }
   };
 
   return (
