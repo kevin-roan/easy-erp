@@ -1,8 +1,10 @@
 // @ts-nocheck
 const express = require("express");
 require("dotenv").config();
+const userRouter = require("./routes/userRouter.js");
 const empolyeeRouter = require("./routes/employeeRouter.js");
 const taskRouter = require("./routes/taskRouter.js");
+const organizationRouter = require("./routes/organizationRouter.js");
 const { connectDB } = require("./config/databaseConfig.js");
 const multer = require("multer");
 const path = require("path");
@@ -18,7 +20,8 @@ const app = express();
 // =================================== MIDDLEWARES ======================================
 // authorization for all routes
 // app.use(jweMiddleware);
-app.use(jwtCheck);
+// temporarly disabled jwt check for all routes,
+// app.use(jwtCheck);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,15 +41,12 @@ app.get("/", (req, res) => {
 // app.use("/api/v1/tasks", requiresAuth(), taskRouter);
 // todo build the routes
 
+app.use("/api/v1/userprofile", jwtCheck, userRouter);
+app.use("/api/v1/organization", organizationRouter);
 app.use("/api/v1/employee", jwtCheck, empolyeeRouter);
 app.use("/api/v1/tasks", jwtCheck, taskRouter);
 app.get("/authorized", function (req, res) {
   res.send("Secured Resource");
-});
-
-app.get("/auth", (req, res, next) => {
-  console.log(req.headers.authorization, "auth header");
-  res.end();
 });
 
 // not found middleware
