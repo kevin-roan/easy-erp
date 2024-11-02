@@ -10,7 +10,6 @@ const { auth } = require("express-openid-connect");
 const { config } = require("./middlewares/auth.js");
 const { requiresAuth } = require("express-openid-connect");
 const jwtCheck = require("./middlewares/verifyJwt.js");
-// const jweMiddleware = require("./middlewares/jweMiddleware");
 
 const port = process.env.DEV_PORT || 8001;
 
