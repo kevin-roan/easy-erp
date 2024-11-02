@@ -5,7 +5,8 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "erpsoftware",
+    "scheme": "com.kevinroan.erpsoftware.auth0",
+    "platforms": ["ios", "android"],
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -41,7 +42,7 @@
         {
           "domain": "dev-e7uxuudwsqqup47u.us.auth0.com",
           "clientId": "m4NE30FRU13LzkYeC4XpFyZxnH6PJH1r",
-          "customScheme": "erpsoftware"
+          "customScheme": "com.kevinroan.erpsoftware.auth0"
         }
       ],
       "expo-secure-store"
