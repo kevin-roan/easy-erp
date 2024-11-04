@@ -1,5 +1,5 @@
 import { Stack } from "expo-router/stack";
-import { PaperProvider } from "react-native-paper";
+import { PaperProvider, TextInput } from "react-native-paper";
 import { BlurView } from "expo-blur";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
@@ -25,6 +25,8 @@ export default function Layout() {
     PlayWrite: require("../assets/fonts/PlaywriteGBS-VariableFont_wght.ttf"),
   });
 
+  const { user, isLoading, getCredentials } = useAuth0();
+
   useEffect(() => {
     if (loaded || error) {
       SplashScreen.hideAsync();
@@ -42,15 +44,16 @@ export default function Layout() {
     statusBarColor: "#F2F4F8",
   };
 
-  // testing protected routes
-  const loggedIn = true;
-  useEffect(() => {
-    if (loggedIn) {
-      router.replace("/(tabs)/");
-    } else {
-      router.replace("/");
-    }
-  });
+  // useEffect(() => {
+  //   if (!isLoading && !user) {
+  //     router.replace("/sign-in");
+  //   }
+  // }, [isLoading, user]);
+  //
+  // if (!loaded || error || isLoading) {
+  //   return <Slot />;
+  // }
+
   return (
     <>
       <Provider store={store}>
@@ -62,6 +65,7 @@ export default function Layout() {
             <StatusBar style="light" backgroundColor="red" />
             <Stack>
               <Stack.Screen name="index" options={headerStyles} />
+              <Stack.Screen name="sign-in" options={headerStyles} />
               <Stack.Screen name="(tabs)" options={headerStyles} />
               <Stack.Screen
                 name="screens/view_notifications"
