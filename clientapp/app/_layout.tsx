@@ -11,9 +11,11 @@ import { Provider } from "react-redux";
 
 import { store, persistor } from "../redux/store/store.js";
 import { useEffect } from "react";
+import * as SecureStore from "expo-secure-store";
 import { Auth0Provider, useAuth0 } from "react-native-auth0";
 
 import { PersistGate } from "redux-persist/integration/react";
+import { Slot, router } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,12 +42,21 @@ export default function Layout() {
     statusBarColor: "#F2F4F8",
   };
 
+  // testing protected routes
+  const loggedIn = true;
+  useEffect(() => {
+    if (loggedIn) {
+      router.replace("/(tabs)/");
+    } else {
+      router.replace("/");
+    }
+  });
   return (
     <>
       <Provider store={store}>
         <Auth0Provider
-          domain={"dev-e7uxuudwsqqup47u.us.auth0.com"}
-          clientId={"m4NE30FRU13LzkYeC4XpFyZxnH6PJH1r"}
+          domain={process.env.EXPO_PUBLIC_AUTH_DOMAIN}
+          clientId={process.env.EXPO_PUBLIC_API_KEY}
         >
           <PersistGate loading={null} persistor={persistor}>
             <StatusBar style="light" backgroundColor="red" />
