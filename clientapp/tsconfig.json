@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "app/.logingback.tsx", "app/.index.ts"  ]
+, "app/.logingback.tsx", "app/.index.ts", "app/screens/.layout.tsx"  ]
 }

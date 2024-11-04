@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   },
   card_desc: {
     fontSize: 17,
+    flexShrink: 1,
     marginRight: 20,
   },
   card_header: {

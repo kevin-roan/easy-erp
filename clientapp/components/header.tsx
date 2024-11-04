@@ -7,14 +7,14 @@ import {
   Vibration,
 } from "react-native";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
-import { useNavigation } from "expo-router";
+import { router, useNavigation } from "expo-router";
 
 export default function Header() {
   const username = "Kevin Roan";
   const navigation = useNavigation();
 
   const handleNavigation = () => {
-    navigation.navigate("screens/view_notifications");
+    router.push("/screens/viewNotifications");
     Vibration.vibrate(50);
   };
   return (
