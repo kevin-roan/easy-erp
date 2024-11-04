@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import Constants from "expo-constants";
 import { useEffect } from "react";
+import { router } from "expo-router";
 
 const customScheme = "com.kevinroan.erpsoftware.auth0";
 
@@ -84,10 +85,13 @@ const Home = () => {
         onPress={loggedIn ? onLogout : onLogin}
         title={loggedIn ? "Log Out" : "Log In"}
       />
+      <Button
+        title="Go to profile"
+        onPress={() => router.replace("/screens/onboarding/create_profile")}
+      ></Button>
     </View>
   );
 };
-
 export default function App() {
   return (
     <Auth0Provider
