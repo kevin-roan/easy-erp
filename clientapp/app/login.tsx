@@ -1,29 +1,25 @@
-import { View } from "react-native";
 import React from "react";
 import { Button, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
+import { useAuth } from "./context/AuthContext";
 
-const Onboarding = () => {
+const Login = () => {
+  const { onLogin } = useAuth();
   return (
     <SafeAreaView
       style={{
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        gap: 40,
+        gap: 20,
       }}
     >
       <Text variant="titleLarge">Welcome to easy erp</Text>
-      <Button
-        icon="arrow-right"
-        mode="contained"
-        onPress={() => router.push("/sign-in")}
-      >
+      <Button icon="arrow-right" mode="contained" onPress={onLogin}>
         Get Started
       </Button>
     </SafeAreaView>
   );
 };
 
-export default Onboarding;
+export default Login;

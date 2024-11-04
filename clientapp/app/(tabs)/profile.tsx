@@ -8,9 +8,12 @@ import {
 } from "react-native";
 import { useAuth0 } from "react-native-auth0";
 import { useRouter } from "expo-router";
+import { useAuth } from "../context/AuthContext";
 
 export default function Tab() {
   const { clearSession, authorize, user, error } = useAuth0();
+
+  const { onLogout, onLogin } = useAuth();
 
   const router = useRouter();
 
@@ -22,15 +25,8 @@ export default function Tab() {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await clearSession().then(() => {
-        router.push("/");
-        console.log("logged out");
-      });
-    } catch (e) {
-      console.log(e);
-    }
+  const handleLogout = () => {
+    onLogout();
   };
   return (
     <View style={styles.container}>
@@ -46,7 +42,7 @@ export default function Tab() {
       <Text>EMP0033</Text>
       <Text>Full Stack Developer</Text>
       <Text>Adacode Solutions</Text>
-      <Button title="Login" onPress={onPress}></Button>
+      <Button title="Login" onPress={onLogin}></Button>
       <TouchableOpacity onPress={handleLogout} style={styles.logout_button}>
         <Text style={styles.logout_button_text}>Log Out</Text>
       </TouchableOpacity>

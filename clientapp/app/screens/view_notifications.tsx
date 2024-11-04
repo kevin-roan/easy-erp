@@ -46,7 +46,6 @@ const ViewNotifications = () => {
           <ClearAll handlePress={handlePress} />
         ) : (
           <View style={styles.no_notifications}>
-            <Image source={require("../../assets/images/mailbox.png")} />
             <Text style={styles.no_noti_text}>No notifications yet</Text>
             <Text style={styles.no_noti_desc}>
               Your notifications will appear here once you've received them

@@ -1,5 +1,4 @@
 import { Stack } from "expo-router/stack";
-import { PaperProvider, TextInput } from "react-native-paper";
 import { BlurView } from "expo-blur";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
@@ -11,11 +10,10 @@ import { Provider } from "react-redux";
 
 import { store, persistor } from "../redux/store/store.js";
 import { useEffect } from "react";
-import * as SecureStore from "expo-secure-store";
-import { Auth0Provider, useAuth0 } from "react-native-auth0";
+import { Auth0Provider } from "react-native-auth0";
 
 import { PersistGate } from "redux-persist/integration/react";
-import { Slot, router } from "expo-router";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,8 +22,6 @@ export default function Layout() {
     Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
     PlayWrite: require("../assets/fonts/PlaywriteGBS-VariableFont_wght.ttf"),
   });
-
-  const { user, isLoading, getCredentials } = useAuth0();
 
   useEffect(() => {
     if (loaded || error) {
@@ -36,24 +32,6 @@ export default function Layout() {
     return null;
   }
 
-  const headerStyles = {
-    headerShown: false,
-    statusBarStyle: "dark",
-    statusBarTranslucent: true,
-    statusBarAnimation: "fade",
-    statusBarColor: "#F2F4F8",
-  };
-
-  // useEffect(() => {
-  //   if (!isLoading && !user) {
-  //     router.replace("/sign-in");
-  //   }
-  // }, [isLoading, user]);
-  //
-  // if (!loaded || error || isLoading) {
-  //   return <Slot />;
-  // }
-
   return (
     <>
       <Provider store={store}>
@@ -63,40 +41,65 @@ export default function Layout() {
         >
           <PersistGate loading={null} persistor={persistor}>
             <StatusBar style="light" backgroundColor="red" />
-            <Stack>
-              <Stack.Screen name="index" options={headerStyles} />
-              <Stack.Screen name="sign-in" options={headerStyles} />
-              <Stack.Screen name="(tabs)" options={headerStyles} />
-              <Stack.Screen
-                name="screens/view_notifications"
-                options={{
-                  headerShown: true,
-                  statusBarTranslucent: headerStyles.statusBarTranslucent,
-                  statusBarAnimation: "slide",
-                  statusBarColor: "#F7F7F7",
-                  headerBackground: () => (
-                    <BlurView
-                      tint="light"
-                      intensity={100}
-                      style={[
-                        StyleSheet.absoluteFill,
-                        { backgroundColor: "#F2F2F6" },
-                      ]}
-                    />
-                  ),
-                  statusBarStyle: headerStyles.statusBarStyle,
-                  headerTitleAlign: "center",
-                  headerTitle: () => (
-                    <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                      Notifications
-                    </Text>
-                  ),
-                }}
-              />
-            </Stack>
+            <AuthProvider>
+              <RootLayout />
+            </AuthProvider>
           </PersistGate>
         </Auth0Provider>
       </Provider>
     </>
   );
 }
+
+const RootLayout = () => {
+  const { authState } = useAuth();
+  console.log("auth state,", authState);
+
+  const headerStyles = {
+    headerShown: false,
+    statusBarStyle: "dark",
+    statusBarTranslucent: true,
+    statusBarAnimation: "fade",
+    statusBarColor: "#F2F4F8",
+  };
+
+  return (
+    <>
+      {authState?.authenticated ? (
+        <Stack>
+          <Stack.Screen name="(tabs)" options={headerStyles} />
+          <Stack.Screen
+            name="screens/view_notifications"
+            options={{
+              headerShown: true,
+              statusBarTranslucent: headerStyles.statusBarTranslucent,
+              statusBarAnimation: "slide",
+              statusBarColor: "#F7F7F7",
+              headerBackground: () => (
+                <BlurView
+                  tint="light"
+                  intensity={100}
+                  style={[
+                    StyleSheet.absoluteFill,
+                    { backgroundColor: "#F2F2F6" },
+                  ]}
+                />
+              ),
+              statusBarStyle: headerStyles.statusBarStyle,
+              headerTitleAlign: "center",
+              headerTitle: () => (
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                  Notifications
+                </Text>
+              ),
+            }}
+          />
+        </Stack>
+      ) : (
+        <Stack>
+          <Stack.Screen name="login" options={headerStyles} />
+        </Stack>
+      )}
+    </>
+  );
+};

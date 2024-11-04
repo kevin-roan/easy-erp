@@ -89,6 +89,12 @@ const Home = () => {
         title="Go to profile"
         onPress={() => router.replace("/screens/onboarding/create_profile")}
       ></Button>
+      <Button
+        title="router button"
+        onPress={() => {
+          router.replace("/(tabs)");
+        }}
+      ></Button>
     </View>
   );
 };
