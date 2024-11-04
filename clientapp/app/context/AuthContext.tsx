@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }: any) => {
   });
 
   // auth0 stuff
-  const { authorize, clearSession, user, error } = useAuth0();
+  const { authorize, clearSession, user, isLoading, error } = useAuth0();
 
   // load the jwt token when the app mounts
 
@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }: any) => {
       axios.defaults.headers.common["Authorization"] = "";
       setAuthState({
         token: null,
-        authenticated: false,
+        authenticated: null,
       });
     } catch (error) {
       console.log("Logout Cancelled");
@@ -94,6 +94,7 @@ export const AuthProvider = ({ children }: any) => {
   const value = {
     onLogin: login,
     onLogout: logout,
+    isLoading,
     authState,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

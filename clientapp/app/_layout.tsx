@@ -7,13 +7,17 @@ import { Text } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Provider } from "react-redux";
+import { Redirect } from "expo-router";
 
 import { store, persistor } from "../redux/store/store.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Auth0Provider } from "react-native-auth0";
 
 import { PersistGate } from "redux-persist/integration/react";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import { router, useRouter } from "expo-router";
+import { Slot } from "expo-router";
+import Splash from "./splash";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,32 +32,36 @@ export default function Layout() {
       SplashScreen.hideAsync();
     }
   }, [loaded, error]);
+
   if (!loaded && error) {
     return null;
   }
-
   return (
-    <>
-      <Provider store={store}>
-        <Auth0Provider
-          domain={process.env.EXPO_PUBLIC_AUTH_DOMAIN}
-          clientId={process.env.EXPO_PUBLIC_API_KEY}
-        >
-          <PersistGate loading={null} persistor={persistor}>
-            <StatusBar style="light" backgroundColor="red" />
-            <AuthProvider>
-              <RootLayout />
-            </AuthProvider>
-          </PersistGate>
-        </Auth0Provider>
-      </Provider>
-    </>
+    <Provider store={store}>
+      <Auth0Provider
+        domain={process.env.EXPO_PUBLIC_AUTH_DOMAIN}
+        clientId={process.env.EXPO_PUBLIC_API_KEY}
+      >
+        <PersistGate loading={null} persistor={persistor}>
+          <StatusBar style="light" backgroundColor="red" />
+          <AuthProvider>
+            <RootLayout />
+          </AuthProvider>
+        </PersistGate>
+      </Auth0Provider>
+    </Provider>
   );
 }
 
 const RootLayout = () => {
-  const { authState } = useAuth();
-  console.log("auth state,", authState);
+  const { authState, isLoading } = useAuth(); // Make sure `isLoading` is implemented in AuthContext to track auth status
+  console.log("auth state:", authState);
+
+  useEffect(() => {
+    if (authState && !isLoading) {
+      router.replace("/(tabs)");
+    }
+  }, [authState]);
 
   const headerStyles = {
     headerShown: false,
@@ -63,43 +71,10 @@ const RootLayout = () => {
     statusBarColor: "#F2F4F8",
   };
 
-  return (
-    <>
-      {authState?.authenticated ? (
-        <Stack>
-          <Stack.Screen name="(tabs)" options={headerStyles} />
-          <Stack.Screen
-            name="screens/view_notifications"
-            options={{
-              headerShown: true,
-              statusBarTranslucent: headerStyles.statusBarTranslucent,
-              statusBarAnimation: "slide",
-              statusBarColor: "#F7F7F7",
-              headerBackground: () => (
-                <BlurView
-                  tint="light"
-                  intensity={100}
-                  style={[
-                    StyleSheet.absoluteFill,
-                    { backgroundColor: "#F2F2F6" },
-                  ]}
-                />
-              ),
-              statusBarStyle: headerStyles.statusBarStyle,
-              headerTitleAlign: "center",
-              headerTitle: () => (
-                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                  Notifications
-                </Text>
-              ),
-            }}
-          />
-        </Stack>
-      ) : (
-        <Stack>
-          <Stack.Screen name="login" options={headerStyles} />
-        </Stack>
-      )}
-    </>
-  );
+  if (isLoading) {
+    // Optional: Render a loading screen while authentication state is being verified
+    return <Splash />;
+  }
+
+  return <Slot />;
 };
