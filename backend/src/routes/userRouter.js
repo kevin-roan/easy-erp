@@ -1,15 +1,20 @@
 const express = require("express");
+const addNewUser = require("../controllers/userController");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  // dummy verification,
-  if (req.query.email === "kevinroan@gmail.com") {
-    console.log("user exists");
-    res.status(200).json({ status: "success", isExists: true });
-  } else {
-    console.log("user not found");
-    res.status(200).json({ status: "success", isExists: false });
+router.post("/", async (req, res) => {
+  const userData = req.body;
+  console.log("reqest body", req.body);
+  if (!userData) {
+    res.status(401).json({ status: false, message: "User data is required" });
+  }
+  try {
+    // const result = await addNewUser(userData);
+    // res.status(200).send(result);
+    res.end();
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 

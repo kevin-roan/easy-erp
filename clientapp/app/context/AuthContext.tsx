@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }: any) => {
   useEffect(() => {
     const loadToken = async () => {
       const token = await SecureStore.getItemAsync(TOKEN_KEY);
-      console.log("stored token", token);
+      // console.log("stored token", token);
       if (token) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         // check the token expiration stuff from here.
@@ -68,10 +68,15 @@ export const AuthProvider = ({ children }: any) => {
         axios.defaults.headers.common["Authorization"] =
           `Bearer ${authResult?.accessToken}`;
 
+        console.log(
+          "Authorization header set:",
+          axios.defaults.headers.common["Authorization"],
+        );
+
         // store the jwt token to secure store
         await SecureStore.setItemAsync(TOKEN_KEY, authResult?.accessToken);
         // verify the user with server
-        await verifyUser("kevinroan04@gmail.com", authResult.accessToken);
+        await verifyUser(user?.email, authResult.accessToken);
       }
     } catch (error) {
       console.log(error);
@@ -99,11 +104,11 @@ export const AuthProvider = ({ children }: any) => {
 
   const verifyUser = async (email, accessToken) => {
     try {
-      const apiResponse = await fetch(
-        `http://192.168.0.198:8000/api/v1/user?email=${encodeURIComponent(email)}`,
+      const apiResponse = await axios.post(
+        `http://192.168.0.198:8000/api/v1/user`,
         {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
+          body: {
+            email: email,
           },
         },
       );
@@ -115,6 +120,9 @@ export const AuthProvider = ({ children }: any) => {
       if (!result.isExists) {
         console.log("New User");
         router.push("/screens/onboarding/create_profile");
+      } else {
+        console.log("Existing user details", result);
+        router.replace("/(tabs)");
       }
     } catch (error) {
       console.log(error);

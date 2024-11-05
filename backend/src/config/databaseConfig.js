@@ -5,7 +5,7 @@ connectDB().catch((err) => console.log(err));
 
 async function connectDB() {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/employeemanager");
+    await mongoose.connect("mongodb://127.0.0.1:27017/easyerp");
     mongoose.connection.on("connected", () => {
       console.log(cls.green("mongodb connection ok"));
     });
