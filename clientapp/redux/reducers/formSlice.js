@@ -5,7 +5,7 @@ export const formSlice = createSlice({
   initialState: {
     formData: {
       profileFormData: {
-        userName: "",
+        name: "",
         email: "",
       },
       workspaceFormData: {
@@ -16,7 +16,7 @@ export const formSlice = createSlice({
   },
   reducers: {
     setProfileFromData: (state, action) => {
-      state.profileFormData = {
+      state.formData.profileFormData = {
         ...state.formData.profileFormData,
         ...action.payload,
       };

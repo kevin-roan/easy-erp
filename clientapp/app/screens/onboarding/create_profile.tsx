@@ -8,16 +8,17 @@ import { router } from "expo-router";
 import { useAuth0 } from "react-native-auth0";
 import { useDispatch } from "react-redux";
 import { setProfileFromData } from "@/redux/reducers/formSlice";
+import { createNewProfile } from "@/services/createProfile";
 
 const CreateProfile = () => {
   const { user } = useAuth0();
   const dispatch = useDispatch();
 
   const handleTextChange = (text: string) => {
-    dispatch(setProfileFromData({ userName: text }));
+    dispatch(setProfileFromData({ name: text, email: user?.email }));
   };
   const handleSubmit = () => {
-    router.push("/screens/onboarding/create_workspace");
+    createNewProfile();
   };
   return (
     <SafeAreaView
@@ -32,6 +33,7 @@ const CreateProfile = () => {
       <Text variant="displaySmall">{user?.email}</Text>
       <TextInput
         placeholder="full name"
+        autoFocus
         onChangeText={(text) => handleTextChange(text)}
       ></TextInput>
       <Button mode="contained" onPress={handleSubmit}>

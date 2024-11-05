@@ -5,15 +5,23 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const userData = req.body;
+  console.log("userdata ", userData);
   if (!userData) {
-    res.status(401).json({ status: false, message: "User data is required" });
+    return res
+      .status(401)
+      .json({ status: false, message: "User data is required" });
   }
   try {
     const result = await addNewUser(userData);
-    res.status(200).send(result);
-    res.end();
+    if (result.isExists) {
+      return res.status(409).json(result); // conflict
+    }
+    return res.status(201).json(result); // created
   } catch (error) {
-    res.status(400).send(error);
+    console.log(error);
+    return res
+      .status(500)
+      .json({ status: false, message: "Server error", error });
   }
 });
 

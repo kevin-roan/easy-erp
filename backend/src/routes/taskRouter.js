@@ -13,12 +13,12 @@ router.get("/", async (req, res) => {
   try {
     const result = await viewAlltasks();
     if (result.status) {
-      res.status(200).json(result);
+      return res.status(200).json(result);
     } else {
-      res.status(404).json(result);
+      return res.status(404).json(result);
     }
   } catch (error) {
-    res.status(400).json({ status: false, error: error });
+    return res.status(400).json({ status: false, error: error });
   }
 });
 
@@ -30,10 +30,12 @@ router.post("/", async (req, res) => {
   // task data contains all the information , assiged to, task name etc.
   try {
     const result = await assignTasktoEmployee(taskData);
-    res.status(200).json({ status: result.status, message: result.message });
+    return res
+      .status(200)
+      .json({ status: result.status, message: result.message });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ error: error });
+    return res.status(400).json({ error: error });
   }
 });
 
@@ -46,7 +48,7 @@ router.delete("/:taskId", async (req, res) => {
   try {
     const result = await deleteTaskById(taskId);
     console.log("result", result);
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ error: error });
   }
@@ -57,9 +59,9 @@ router.get("/employee/:employeeId", async (req, res) => {
   const employeeId = req.params.employeeId;
   try {
     const result = await getEmployeeTasks(employeeId);
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (error) {
-    res.status(500).json({ error: error });
+    return res.status(500).json({ error: error });
   }
 });
 
@@ -73,12 +75,12 @@ router.patch("/:taskId", async (req, res) => {
   try {
     const result = await updateTask(taskId, updatedData);
     if (result.status) {
-      res.status(200).json(result);
+      return res.status(200).json(result);
     } else {
-      res.status(404).json(result);
+      return res.status(404).json(result);
     }
   } catch (error) {
-    res.status(500).json({ status: false, error: error });
+    return res.status(500).json({ status: false, error: error });
   }
 });
 
