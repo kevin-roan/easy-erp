@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import tasksReducer from "../reducers/taskSlice.js";
 import employeeReducer from "../reducers/employeeSlice.js";
+import formReducer from "../reducers/formSlice.js";
 import { persistStore, persistReducer } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -18,6 +19,7 @@ export const store = configureStore({
   reducer: {
     tasks: persistedTasksReducer,
     employee: employeeReducer,
+    form: formReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

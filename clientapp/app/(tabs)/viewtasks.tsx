@@ -27,6 +27,7 @@ export default function Tab() {
         {status == "succeeded" &&
           filteredTasks?.map((task) => (
             <AcceptTaskCard
+              key={task.id}
               title={task.taskName}
               desc={task.taskDesc}
               id={task._id}

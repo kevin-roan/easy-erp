@@ -1,18 +1,23 @@
 import React from "react";
 import { Text } from "react-native-paper";
+
 import { TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "react-native-paper";
 import { router } from "expo-router";
 import { useAuth0 } from "react-native-auth0";
-import { useRoute } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setProfileFromData } from "@/redux/reducers/formSlice";
 
 const CreateProfile = () => {
   const { user } = useAuth0();
-  // this shoudl get the email of the user
+  const dispatch = useDispatch();
 
-  const handleCreateProfile = (text) => {
-    console.log(text);
+  const handleTextChange = (text: string) => {
+    dispatch(setProfileFromData({ userName: text }));
+  };
+  const handleSubmit = () => {
+    router.push("/screens/onboarding/create_workspace");
   };
   return (
     <SafeAreaView
@@ -24,15 +29,12 @@ const CreateProfile = () => {
       }}
     >
       <Text variant="displaySmall">Create Profile</Text>
-      <Text variant="displaySmall">{user.email}</Text>
+      <Text variant="displaySmall">{user?.email}</Text>
       <TextInput
         placeholder="full name"
-        onChangeText={(text) => handleCreateProfile(text)}
+        onChangeText={(text) => handleTextChange(text)}
       ></TextInput>
-      <Button
-        mode="contained"
-        onPress={() => router.replace("/screens/onboarding/create_workspace")}
-      >
+      <Button mode="contained" onPress={handleSubmit}>
         Next
       </Button>
     </SafeAreaView>

@@ -3,6 +3,7 @@ import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import { useAuth0 } from "react-native-auth0";
 import { router } from "expo-router";
+import { storeUserData } from "@/services/storeUserdata";
 
 const AuthContext = createContext({});
 
@@ -117,6 +118,8 @@ export const AuthProvider = ({ children }: any) => {
         router.push("/screens/onboarding/create_profile");
       } else {
         console.log("Existing user details", result);
+        // store the userdata in async storage
+        storeUserData(result.data);
         router.replace("/(tabs)");
       }
     } catch (error) {
