@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const fetchUserDataFromStorage = createAsyncThunk(
   "users/fetchUserData",
   async () => {
-    const response = await AsyncStorage.getItem("@userInfo");
-    if (response !== undefined) {
-      return response;
-    }
+    // const response = await AsyncStorage.getItem("@userInfo");
+    const response = 12;
+    // if (response !== undefined) {
+    //   return response;
+    // }
     return null; // if no data found
   },
 );

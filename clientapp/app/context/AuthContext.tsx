@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import { useAuth0 } from "react-native-auth0";
+import { router } from "expo-router";
 
 const AuthContext = createContext({});
 
@@ -16,9 +17,11 @@ export const AuthProvider = ({ children }: any) => {
   const [authState, setAuthState] = useState<{
     token: string | null;
     authenticated: boolean | null;
+    isActive: boolean | null;
   }>({
     token: null,
     authenticated: null,
+    isActive: null,
   });
 
   // auth0 stuff
@@ -64,8 +67,11 @@ export const AuthProvider = ({ children }: any) => {
         // send the jwt token with every axios request ( binding the token to axios header )
         axios.defaults.headers.common["Authorization"] =
           `Bearer ${authResult?.accessToken}`;
+
         // store the jwt token to secure store
         await SecureStore.setItemAsync(TOKEN_KEY, authResult?.accessToken);
+        // verify the user with server
+        await verifyUser("kevinroan04@gmail.com", authResult.accessToken);
       }
     } catch (error) {
       console.log(error);
@@ -91,10 +97,35 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
+  const verifyUser = async (email, accessToken) => {
+    try {
+      const apiResponse = await fetch(
+        `http://192.168.0.198:8000/api/v1/user?email=${encodeURIComponent(email)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      if (!apiResponse.ok) {
+        throw new Error(`HTTP error! status: ${apiResponse.status}`);
+      }
+
+      const result = await apiResponse.json();
+      if (!result.isExists) {
+        console.log("New User");
+        router.push("/screens/onboarding/create_profile");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const value = {
     onLogin: login,
     onLogout: logout,
     isLoading,
+    verifyUser,
     authState,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

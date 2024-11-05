@@ -6,7 +6,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Tab() {
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor="white" />
       <View style={styles.search_bar}>
         <TextInput placeholder="Search" style={styles.search_bar_text} />
       </View>

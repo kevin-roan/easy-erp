@@ -1,29 +1,11 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import { useAuth0 } from "react-native-auth0";
-import { useRouter } from "expo-router";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Button } from "react-native-paper";
 import { useAuth } from "../context/AuthContext";
+import { useAuth0 } from "react-native-auth0";
 
 export default function Tab() {
-  const { clearSession, authorize, user, error } = useAuth0();
-
-  const { onLogout, onLogin } = useAuth();
-
-  const router = useRouter();
-
-  const onPress = async () => {
-    try {
-      await authorize();
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const { user, error } = useAuth0();
+  const { onLogout, onLogin, verifyUser } = useAuth();
 
   const handleLogout = () => {
     onLogout();
@@ -37,11 +19,9 @@ export default function Tab() {
           uri: user?.picture,
         }}
       />
-      <Text>Kevin Roan</Text>
       <Text>Employee Email:{user?.email}</Text>
       <Text>EMP0033</Text>
       <Text>Full Stack Developer</Text>
-      <Text>Adacode Solutions</Text>
       <Button title="Login" onPress={onLogin}></Button>
       <TouchableOpacity onPress={handleLogout} style={styles.logout_button}>
         <Text style={styles.logout_button_text}>Log Out</Text>
@@ -49,6 +29,13 @@ export default function Tab() {
       {user && <Text>Logged in as {user.name}</Text>}
       {!user && <Text>Not logged in</Text>}
       {error && <Text>{error.message}</Text>}
+      <Button
+        icon="camera"
+        mode="contained"
+        onPress={() => verifyUser(user?.email)}
+      >
+        Press me
+      </Button>
     </View>
   );
 }

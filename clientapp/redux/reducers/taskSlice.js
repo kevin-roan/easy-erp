@@ -7,7 +7,7 @@ export const fetchTasksAll = createAsyncThunk("tasks/fetchTasks", async () => {
   const response = await axios.get("http://192.168.0.198:8000/api/v1/tasks");
 
   // store tasks to asyncstorage for offline use.
-  await AsyncStorage.setItem("@tasks", JSON.stringify(response.data.result));
+  // await AsyncStorage.setItem("@tasks", JSON.stringify(response.data.result));
   return response.data.result; // returns the tasks data
 });
 
@@ -16,17 +16,20 @@ export const fetchTasksAll = createAsyncThunk("tasks/fetchTasks", async () => {
 export const updateTaskById = createAsyncThunk(
   "tasks/updateTask",
   async (taskId) => {
-    await axios
-      .patch(`http://192.168.0.198:8000/api/v1/tasks/${taskId}`, {
-        isAccepted: true,
-      })
-      .then((response) => {
-        console.log("FOOO", response.data);
-        if (response.status) {
-          return response.data;
-        }
-      })
-      .catch((error) => console.log("error", error));
+    try {
+      const response = await axios.patch(
+        `http://192.168.0.198:8000/api/v1/tasks/${taskId}`,
+        {
+          isAccepted: true,
+        },
+      );
+      if (response.status === 200) {
+        return response.data; // only return serializable response data
+      }
+    } catch (error) {
+      console.error("Error updating task:", error);
+      throw error; // re-throw to handle in slice
+    }
   },
 );
 

@@ -43,7 +43,6 @@ export default function Layout() {
         clientId={process.env.EXPO_PUBLIC_API_KEY}
       >
         <PersistGate loading={null} persistor={persistor}>
-          <StatusBar style="light" backgroundColor="red" />
           <AuthProvider>
             <RootLayout />
           </AuthProvider>
@@ -55,7 +54,7 @@ export default function Layout() {
 
 const RootLayout = () => {
   const { authState, isLoading } = useAuth(); // Make sure `isLoading` is implemented in AuthContext to track auth status
-  console.log("auth state:", authState);
+  // console.log("auth state:", authState);
 
   useEffect(() => {
     if (authState && !isLoading) {
@@ -63,18 +62,15 @@ const RootLayout = () => {
     }
   }, [authState]);
 
-  const headerStyles = {
-    headerShown: false,
-    statusBarStyle: "dark",
-    statusBarTranslucent: true,
-    statusBarAnimation: "fade",
-    statusBarColor: "#F2F4F8",
-  };
-
   if (isLoading) {
     // Optional: Render a loading screen while authentication state is being verified
     return <Splash />;
   }
 
-  return <Slot />;
+  return (
+    <>
+      <StatusBar style="dark" />
+      <Slot />
+    </>
+  );
 };

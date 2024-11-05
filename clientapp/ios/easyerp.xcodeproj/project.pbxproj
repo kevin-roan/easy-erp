@@ -14,8 +14,8 @@
 		96905EF65AED1B983A6B3ABC /* libPods-easyerp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-easyerp.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		5133D4462962446A99229E37 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE058148A6D425183FEAB1E /* noop-file.swift */; };
-		525461D020FA467AB7D52098 /* SpaceMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 485E2DD20EC54127860A0E7E /* SpaceMono-Regular.ttf */; };
+		A7940610131F4DA9B772F255 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE78279C7D8745D79DE7A51E /* noop-file.swift */; };
+		D4218CFCD229403498CC8947 /* SpaceMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25340955BC0D47D9B3135810 /* SpaceMono-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,9 +32,9 @@
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-easyerp/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		DEE058148A6D425183FEAB1E /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "easyerp/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
-		773610AAC04D43D0A837110D /* easyerp-Bridging-Header.h */ = {isa = PBXFileReference; name = "easyerp-Bridging-Header.h"; path = "easyerp/easyerp-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		485E2DD20EC54127860A0E7E /* SpaceMono-Regular.ttf */ = {isa = PBXFileReference; name = "SpaceMono-Regular.ttf"; path = "../assets/fonts/SpaceMono-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EE78279C7D8745D79DE7A51E /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "easyerp/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		EEFC6C0F90974E6198C0DD8F /* easyerp-Bridging-Header.h */ = {isa = PBXFileReference; name = "easyerp-Bridging-Header.h"; path = "easyerp/easyerp-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		25340955BC0D47D9B3135810 /* SpaceMono-Regular.ttf */ = {isa = PBXFileReference; name = "SpaceMono-Regular.ttf"; path = "../assets/fonts/SpaceMono-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +59,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				DEE058148A6D425183FEAB1E /* noop-file.swift */,
-				773610AAC04D43D0A837110D /* easyerp-Bridging-Header.h */,
+				EE78279C7D8745D79DE7A51E /* noop-file.swift */,
+				EEFC6C0F90974E6198C0DD8F /* easyerp-Bridging-Header.h */,
 			);
 			name = easyerp;
 			sourceTree = "<group>";
@@ -90,7 +90,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
-				D51C2BFBF5F34765BA0D3E4A /* Resources */,
+				E96B9859F18C4748B2FC8D34 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -139,10 +139,10 @@
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
-		D51C2BFBF5F34765BA0D3E4A /* Resources */ = {
+		E96B9859F18C4748B2FC8D34 /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
-				485E2DD20EC54127860A0E7E /* SpaceMono-Regular.ttf */,
+				25340955BC0D47D9B3135810 /* SpaceMono-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -210,8 +210,8 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				03394871EC324C8C9743C871 /* easyerp-Bridging-Header.h in Resources */,
-				525461D020FA467AB7D52098 /* SpaceMono-Regular.ttf in Resources */,
+				57EB4DFB59494195BC1BB175 /* easyerp-Bridging-Header.h in Resources */,
+				D4218CFCD229403498CC8947 /* SpaceMono-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,7 +287,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				5133D4462962446A99229E37 /* noop-file.swift in Sources */,
+				A7940610131F4DA9B772F255 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
