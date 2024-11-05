@@ -102,21 +102,16 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
-  const verifyUser = async (email, accessToken) => {
+  const verifyUser = async (email) => {
     try {
       const apiResponse = await axios.post(
         `http://192.168.0.198:8000/api/v1/user`,
         {
-          body: {
-            email: email,
-          },
+          email: email,
         },
       );
-      if (!apiResponse.ok) {
-        throw new Error(`HTTP error! status: ${apiResponse.status}`);
-      }
 
-      const result = await apiResponse.json();
+      const result = apiResponse.data;
       if (!result.isExists) {
         console.log("New User");
         router.push("/screens/onboarding/create_profile");
