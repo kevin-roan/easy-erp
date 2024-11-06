@@ -8,6 +8,7 @@ import { router } from "expo-router";
 import { useAuth0 } from "react-native-auth0";
 import { useDispatch } from "react-redux";
 import { setProfileFromData } from "@/redux/reducers/formSlice";
+import { useState } from "react";
 import { createNewProfile } from "@/services/createProfile";
 
 const CreateProfile = () => {
@@ -15,7 +16,9 @@ const CreateProfile = () => {
   const dispatch = useDispatch();
 
   const handleTextChange = (text: string) => {
-    dispatch(setProfileFromData({ name: text, email: user?.email }));
+    dispatch(
+      setProfileFromData({ name: text, email: user?.email, designation }),
+    );
   };
   const handleSubmit = () => {
     createNewProfile();
@@ -36,6 +39,7 @@ const CreateProfile = () => {
         autoFocus
         onChangeText={(text) => handleTextChange(text)}
       ></TextInput>
+      <TextInput placeholder="Designation"></TextInput>
       <Button mode="contained" onPress={handleSubmit}>
         Next
       </Button>

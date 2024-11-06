@@ -7,6 +7,7 @@ export const formSlice = createSlice({
       profileFormData: {
         name: "",
         email: "",
+        designation: "",
       },
       workspaceFormData: {
         workspaceName: "",
