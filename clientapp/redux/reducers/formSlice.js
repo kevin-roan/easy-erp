@@ -7,11 +7,17 @@ export const formSlice = createSlice({
       profileFormData: {
         name: "",
         email: "",
-        designation: "",
+        status: "Active",
       },
       workspaceFormData: {
         workspaceName: "",
-        participantsEmail: [""], // optional, planning to implement it in future.
+        participants: ["kevinroan@gmail.com", "mail.kevinroan@gmail.com"], // optional, planning to implement it in future.
+        owner: {
+          // owner details
+          userId: "672603867cd35ceb12ebcad5", // id of logged user
+          userName: "",
+          userEmail: "",
+        },
       },
     },
   },

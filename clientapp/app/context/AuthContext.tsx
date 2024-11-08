@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }: any) => {
         await SecureStore.setItemAsync(TOKEN_KEY, authResult?.accessToken);
 
         // force fetch the user info from auth server
-        const fetchUserInfo = async (accessToken) => {
+        const fetchUserInfo = async (accessToken: string) => {
           try {
             const response = await axios.get(
               "https://dev-e7uxuudwsqqup47u.us.auth0.com/userinfo",
@@ -117,7 +117,7 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
-  const verifyUser = async (email) => {
+  const verifyUser = async (email: string) => {
     console.log("Verify User email", email);
     try {
       const apiResponse = await axios.post(

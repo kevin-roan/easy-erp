@@ -5,14 +5,26 @@ import { Button, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch } from "react-redux";
 import { createNewProfile } from "@/services/createProfile";
+import createWorkspace from "@/services/createWorkspace";
+import { useAuth0 } from "react-native-auth0";
 
 const create_workspace = () => {
+  const { user } = useAuth0();
+  console.log("user details", user);
   const dispatch = useDispatch();
   const handleTextChange = (text: string) => {
-    dispatch(setWorkspaceFormData({ workspaceName: text }));
+    dispatch(
+      setWorkspaceFormData({
+        workspaceName: text,
+        owner: {
+          userName: user?.email,
+          userEmail: user?.email,
+        },
+      }),
+    );
   };
   const handleSubmit = () => {
-    createNewProfile();
+    createWorkspace();
   };
   return (
     <SafeAreaView

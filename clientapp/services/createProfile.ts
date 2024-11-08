@@ -20,7 +20,7 @@ const createNewProfile = async () => {
     }
     if (response.status === 201) {
       // created
-      router.replace("/(tabs)");
+      router.replace("/screens/onboarding/create_workspace");
     }
   } catch (error) {
     console.error("Error creating a profile", error);

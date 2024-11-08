@@ -4,7 +4,8 @@ const { addOrganization } = require("../controllers/organizationController");
 const router = express.Router();
 
 // fetch organization data from route
-router.get("/", (req, res) => {
+router.post("/", async (req, res) => {
+  console.log("getting requat on workspace dire");
   const orgData = req.body;
   console.log("org data", orgData);
   if (!orgData) {
@@ -13,7 +14,7 @@ router.get("/", (req, res) => {
       .json({ status: false, message: "Organization Details are required" });
   }
   try {
-    const result = addOrganization(orgData);
+    const result = await addOrganization(orgData);
     if (result.status) {
       return res.status(200).json(result); // successfull
     } else {

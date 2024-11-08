@@ -13,26 +13,14 @@ const teamSchema = new mongoose.Schema({
   },
 });
 
-// Define the schema for a participant
-const participantSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-  },
-  username: {
-    type: String,
-    required: true,
-  },
-});
-
 // Define the main organization schema
 const organizationSchema = new mongoose.Schema({
-  name: {
+  workspaceName: {
     type: String,
     required: true,
   },
   owner: {
-    username: {
+    userName: {
       type: String,
       required: true,
     },
@@ -47,7 +35,12 @@ const organizationSchema = new mongoose.Schema({
     default: "Inactive",
   },
   teams: [teamSchema],
-  participants: [participantSchema],
+  participants: [
+    (email = {
+      type: String,
+      required: true,
+    }),
+  ],
 });
 
 const Organization = mongoose.model("Organization", organizationSchema);

@@ -28,7 +28,7 @@ export default function Tab() {
           filteredTasks?.map((task) => (
             <AcceptTaskCard
               key={task.id}
-              title={task.taskName}
+              title={task.name}
               desc={task.taskDesc}
               id={task._id}
             />

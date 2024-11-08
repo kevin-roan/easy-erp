@@ -1,6 +1,9 @@
 import Chatcard from "@/components/chatcard";
+import createWorkspace from "@/services/createWorkspace";
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { View, ScrollView, StyleSheet, TextInput } from "react-native";
+import { Button } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Tab() {
@@ -11,6 +14,11 @@ export default function Tab() {
       </View>
       <ScrollView>
         <Chatcard />
+        <Button
+          onPress={() => router.push("/screens/onboarding/create_workspace")}
+        >
+          Create Workspace
+        </Button>
       </ScrollView>
     </SafeAreaView>
   );
