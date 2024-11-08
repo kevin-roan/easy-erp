@@ -13,23 +13,6 @@ const teamSchema = new mongoose.Schema({
   },
 });
 
-// Define the schema for the owner
-const ownerSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    match: /.+\@.+\..+/, // Basic email validation
-  },
-});
-
 // Define the schema for a participant
 const participantSchema = new mongoose.Schema({
   userId: {
@@ -49,20 +32,24 @@ const organizationSchema = new mongoose.Schema({
     required: true,
   },
   owner: {
-    type: ownerSchema, // Embed the owner schema
-    required: true,
+    username: {
+      type: String,
+      required: true,
+    },
+    userEmail: {
+      type: String,
+      required: true,
+    },
   },
   status: {
     type: String,
-    enum: ["Active", "Inactive"], // Restrict status values
-    default: "Inactive", // Default status
+    enum: ["Active", "Inactive"],
+    default: "Inactive",
   },
-  teams: [teamSchema], // Array of team schemas
-  participants: [participantSchema], // Array of participant schemas
+  teams: [teamSchema],
+  participants: [participantSchema],
 });
 
-// Create the model
 const Organization = mongoose.model("Organization", organizationSchema);
 
-// Export the model
 module.exports = Organization;
