@@ -8,10 +8,16 @@ const createNewProfile = async () => {
   const profileData = state.form.formData.profileFormData;
 
   try {
-    const response = await axios.post("http://192.168.0.198:8000/api/v1/user", {
+    const response = await axios.post(
+      "http://192.168.0.198:8000/api/v1/user",
       profileData,
-    });
-    console.log("created workspace and user", response.data);
+    );
+    if (response.status) {
+      Alert.alert("Created User Successfully");
+    } else {
+      console.log("created workspace and user", response.data);
+      Alert.alert(response.data);
+    }
     if (response.status === 201) {
       // created
       router.replace("/(tabs)");

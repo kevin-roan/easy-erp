@@ -69,15 +69,29 @@ export const AuthProvider = ({ children }: any) => {
         axios.defaults.headers.common["Authorization"] =
           `Bearer ${authResult?.accessToken}`;
 
-        console.log(
-          "Authorization header set:",
-          axios.defaults.headers.common["Authorization"],
-        );
-
         // store the jwt token to secure store
         await SecureStore.setItemAsync(TOKEN_KEY, authResult?.accessToken);
+
+        // force fetch the user info from auth server
+        const fetchUserInfo = async (accessToken) => {
+          try {
+            const response = await axios.get(
+              "https://dev-e7uxuudwsqqup47u.us.auth0.com/userinfo",
+              {
+                headers: { Authorization: `Bearer ${accessToken}` },
+              },
+            );
+            return response.data;
+          } catch (error) {
+            console.log("Error fetching user info:", error);
+            return null;
+          }
+        };
+        const userdata = await fetchUserInfo(authResult.accessToken);
         // verify the user with server
-        await verifyUser(user?.email, authResult.accessToken);
+        if (userdata.email) {
+          await verifyUser(userdata.email);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -104,6 +118,7 @@ export const AuthProvider = ({ children }: any) => {
   };
 
   const verifyUser = async (email) => {
+    console.log("Verify User email", email);
     try {
       const apiResponse = await axios.post(
         `http://192.168.0.198:8000/api/v1/user`,
@@ -113,6 +128,7 @@ export const AuthProvider = ({ children }: any) => {
       );
 
       const result = apiResponse.data;
+      console.log("result", result);
       if (!result.isExists) {
         console.log("New User");
         router.push("/screens/onboarding/create_profile");

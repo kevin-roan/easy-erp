@@ -16,9 +16,7 @@ const CreateProfile = () => {
   const dispatch = useDispatch();
 
   const handleTextChange = (text: string) => {
-    dispatch(
-      setProfileFromData({ name: text, email: user?.email, designation }),
-    );
+    dispatch(setProfileFromData({ name: text, email: user?.email }));
   };
   const handleSubmit = () => {
     createNewProfile();
@@ -39,7 +37,6 @@ const CreateProfile = () => {
         autoFocus
         onChangeText={(text) => handleTextChange(text)}
       ></TextInput>
-      <TextInput placeholder="Designation"></TextInput>
       <Button mode="contained" onPress={handleSubmit}>
         Next
       </Button>
