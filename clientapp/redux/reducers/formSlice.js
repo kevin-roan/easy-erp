@@ -19,6 +19,14 @@ export const formSlice = createSlice({
           userEmail: "",
         },
       },
+      teamFormData: {
+        teamName: "",
+        teamMembers: ["kevinroan@gmail.com", "mail.kevinroan@gmail.com"],
+        workspace: {
+          workspaceName: "",
+          workspaceId: "",
+        },
+      },
     },
   },
   reducers: {
@@ -34,8 +42,15 @@ export const formSlice = createSlice({
         ...action.payload,
       };
     },
+    setTeamFormData: (state, action) => {
+      state.formData.teamFormData = {
+        ...state.formData.teamFormData,
+        ...action.payload,
+      };
+    },
   },
 });
 
-export const { setProfileFromData, setWorkspaceFormData } = formSlice.actions;
+export const { setProfileFromData, setWorkspaceFormData, setTeamFormData } =
+  formSlice.actions;
 export default formSlice.reducer;

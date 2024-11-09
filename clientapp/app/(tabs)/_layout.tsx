@@ -9,6 +9,10 @@ export default function TabLayout() {
   if (!authState.authenticated) {
     return <Redirect href="/login" />;
   }
+  if (!authState.isActive) {
+    return <Redirect href="/screens/onboarding/create_profile" />;
+  }
+  console.log("autstate", authState);
   return (
     <Tabs
       screenOptions={{

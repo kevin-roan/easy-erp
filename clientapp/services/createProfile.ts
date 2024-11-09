@@ -14,12 +14,13 @@ const createNewProfile = async () => {
     );
     if (response.status) {
       Alert.alert("Created User Successfully");
+      router.push("/screens/onboarding/create_workspace");
     } else {
       console.log("created workspace and user", response.data);
       Alert.alert(response.data);
     }
     if (response.status === 201) {
-      // created
+      // exists
       router.replace("/screens/onboarding/create_workspace");
     }
   } catch (error) {

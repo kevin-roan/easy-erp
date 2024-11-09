@@ -1,26 +1,39 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Button } from "react-native-paper";
 import { useAuth } from "../context/AuthContext";
 import { useAuth0 } from "react-native-auth0";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Text } from "react-native-paper";
+import { useEffect, useState } from "react";
 
 export default function Tab() {
-  const { user, error, getCredentials } = useAuth0();
+  const [userdata, setUserdata] = useState(null);
+  const { user, error } = useAuth0();
   const { onLogout, onLogin, verifyUser } = useAuth();
   const handleLogout = () => {
     onLogout();
   };
+
+  // instead of this, use authcontext for fetching the data
+  useEffect(() => {
+    const getUserdata = async () => {
+      const storedUserdata = await AsyncStorage.getItem("userdata");
+      setUserdata(JSON.parse(storedUserdata));
+    };
+    getUserdata();
+  }, []);
   return (
     <View style={styles.container}>
       <Image
-        height={200}
-        width={200}
+        height={50}
+        width={50}
+        style={{ borderRadius: 1000 }}
         source={{
           uri: user?.picture,
         }}
       />
-      <Text>Employee Email:{user?.email}</Text>
-      <Text>EMP0033</Text>
-      <Text>Full Stack Developer</Text>
+      <Text variant="bodyLarge">Employee Email:{userdata?.name} </Text>
+      <Text variant="titleMedium">UserId:{userdata?._id}</Text>
       <Button title="Login" onPress={onLogin}></Button>
       <TouchableOpacity onPress={handleLogout} style={styles.logout_button}>
         <Text style={styles.logout_button_text}>Log Out</Text>

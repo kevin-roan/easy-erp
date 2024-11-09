@@ -19,7 +19,7 @@ const CreateProfile = () => {
     dispatch(setProfileFromData({ name: text, email: user?.email }));
   };
   const handleSubmit = () => {
-    createNewProfile();
+    router.push("/screens/onboarding/create_workspace");
   };
   return (
     <SafeAreaView

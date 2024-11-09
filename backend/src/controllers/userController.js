@@ -6,7 +6,6 @@ const addNewUser = async (userData) => {
   try {
     const queryUser = await User.findOne({ email });
     if (queryUser) {
-      console.log(queryUser);
       return {
         status: true,
         message: "User already exists",
@@ -20,7 +19,7 @@ const addNewUser = async (userData) => {
         const savedUser = await newUser.save();
         if (savedUser) {
           console.log("Added User successfully");
-          return { status: true, message: "Added new User" };
+          return { status: true, message: "Added new User", data: savedUser };
         }
       } else {
         return { status: false, message: "User not found" };

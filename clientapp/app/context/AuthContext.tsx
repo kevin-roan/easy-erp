@@ -4,6 +4,7 @@ import * as SecureStore from "expo-secure-store";
 import { useAuth0 } from "react-native-auth0";
 import { router } from "expo-router";
 import { storeUserData } from "@/services/storeUserdata";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AuthContext = createContext({});
 
@@ -19,10 +20,12 @@ export const AuthProvider = ({ children }: any) => {
     token: string | null;
     authenticated: boolean | null;
     isActive: boolean | null;
+    userInfo: string | null;
   }>({
     token: null,
     authenticated: null,
     isActive: null,
+    userInfo: null,
   });
 
   // auth0 stuff
@@ -32,14 +35,17 @@ export const AuthProvider = ({ children }: any) => {
 
   useEffect(() => {
     const loadToken = async () => {
+      // access token from auth0
       const token = await SecureStore.getItemAsync(TOKEN_KEY);
-      // console.log("stored token", token);
+      // user info from the server
+      const userInfo = await AsyncStorage.getItem("userdata");
       if (token) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         // check the token expiration stuff from here.
         setAuthState({
           token: token,
           authenticated: true,
+          userInfo: JSON.parse(userInfo),
         });
       }
     };
@@ -106,11 +112,13 @@ export const AuthProvider = ({ children }: any) => {
     try {
       await clearSession({ customScheme: customScheme });
       await SecureStore.deleteItemAsync(TOKEN_KEY);
+      await AsyncStorage.removeItem("userdata");
       // reset axios default auth header
       axios.defaults.headers.common["Authorization"] = "";
       setAuthState({
         token: null,
         authenticated: null,
+        userInfo: null,
       });
     } catch (error) {
       console.log("Logout Cancelled");
@@ -131,10 +139,12 @@ export const AuthProvider = ({ children }: any) => {
       console.log("result", result);
       if (!result.isExists) {
         console.log("New User");
+        // setAuthState((prevData) => ({ ...prevData, isActive: false }));
         router.push("/screens/onboarding/create_profile");
       } else {
         console.log("Existing user details", result);
         // store the userdata in async storage
+        setAuthState((prevData) => ({ ...prevData, isActive: true }));
         storeUserData(result.data);
         router.replace("/(tabs)");
       }
@@ -149,6 +159,7 @@ export const AuthProvider = ({ children }: any) => {
     isLoading,
     verifyUser,
     authState,
+    setAuthState,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

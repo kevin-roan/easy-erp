@@ -7,9 +7,13 @@ import { useDispatch } from "react-redux";
 import { createNewProfile } from "@/services/createProfile";
 import createWorkspace from "@/services/createWorkspace";
 import { useAuth0 } from "react-native-auth0";
+import { useAuth } from "@/app/context/AuthContext";
+import { router } from "expo-router";
 
 const create_workspace = () => {
   const { user } = useAuth0();
+  const { authState } = useAuth();
+
   console.log("user details", user);
   const dispatch = useDispatch();
   const handleTextChange = (text: string) => {
@@ -24,7 +28,7 @@ const create_workspace = () => {
     );
   };
   const handleSubmit = () => {
-    createWorkspace();
+    router.push("/screens/onboarding/create_team");
   };
   return (
     <SafeAreaView

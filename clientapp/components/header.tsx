@@ -8,10 +8,18 @@ import {
 } from "react-native";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
 import { router, useNavigation } from "expo-router";
+import { useAuth } from "@/app/context/AuthContext";
+import { useEffect, useState } from "react";
 
 export default function Header() {
-  const username = "Kevin Roan";
-  const navigation = useNavigation();
+  const [username, setUsername] = useState("user");
+  const { authState } = useAuth();
+  useEffect(() => {
+    if (authState.userInfo) {
+      const username = authState?.userInfo.name;
+      setUsername(username);
+    }
+  }, []);
 
   const handleNavigation = () => {
     router.push("/screens/viewNotifications");
