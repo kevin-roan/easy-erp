@@ -22,10 +22,6 @@ export const formSlice = createSlice({
       teamFormData: {
         teamName: "",
         teamMembers: ["kevinroan@gmail.com", "mail.kevinroan@gmail.com"],
-        workspace: {
-          workspaceName: "",
-          workspaceId: "",
-        },
       },
     },
   },
