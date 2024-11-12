@@ -126,7 +126,6 @@ export const AuthProvider = ({ children }: any) => {
   };
 
   const verifyUser = async (email: string) => {
-    console.log("Verify User email", email);
     try {
       const apiResponse = await axios.post(
         `http://192.168.0.198:8000/api/v1/user`,
@@ -139,7 +138,7 @@ export const AuthProvider = ({ children }: any) => {
       console.log("result", result);
       if (!result.isExists) {
         console.log("New User");
-        // setAuthState((prevData) => ({ ...prevData, isActive: false }));
+        setAuthState((prevData) => ({ ...prevData, isActive: false }));
         router.push("/screens/onboarding/create_profile");
       } else {
         console.log("Existing user details", result);

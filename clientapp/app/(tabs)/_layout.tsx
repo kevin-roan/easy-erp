@@ -1,17 +1,13 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Redirect, Tabs, router } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { useAuth } from "../context/AuthContext";
-import { useEffect } from "react";
 
 export default function TabLayout() {
   const { authState } = useAuth();
   if (!authState.authenticated) {
     return <Redirect href="/login" />;
   }
-  if (!authState.isActive) {
-    return <Redirect href="/screens/onboarding/create_profile" />;
-  }
+
   console.log("autstate", authState);
   return (
     <Tabs

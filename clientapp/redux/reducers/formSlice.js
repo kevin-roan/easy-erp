@@ -4,49 +4,24 @@ export const formSlice = createSlice({
   name: "form",
   initialState: {
     formData: {
-      profileFormData: {
+      signup: {
         name: "",
         email: "",
-        status: "Active",
-      },
-      workspaceFormData: {
         workspaceName: "",
-        participants: ["kevinroan@gmail.com", "mail.kevinroan@gmail.com"], // optional, planning to implement it in future.
-        owner: {
-          // owner details
-          userId: "672603867cd35ceb12ebcad5", // id of logged user
-          userName: "",
-          userEmail: "",
-        },
-      },
-      teamFormData: {
+        participants: ["kevinroan@gmail.com", "mail.kevinroan@gmail.com"],
         teamName: "",
-        teamMembers: ["kevinroan@gmail.com", "mail.kevinroan@gmail.com"],
       },
     },
   },
   reducers: {
-    setProfileFromData: (state, action) => {
-      state.formData.profileFormData = {
-        ...state.formData.profileFormData,
-        ...action.payload,
-      };
-    },
-    setWorkspaceFormData: (state, action) => {
-      state.formData.workspaceFormData = {
-        ...state.formData.workspaceFormData,
-        ...action.payload,
-      };
-    },
-    setTeamFormData: (state, action) => {
-      state.formData.teamFormData = {
-        ...state.formData.teamFormData,
+    setSignUpformdata: (state, action) => {
+      state.formData.signup = {
+        ...state.formData.signup,
         ...action.payload,
       };
     },
   },
 });
 
-export const { setProfileFromData, setWorkspaceFormData, setTeamFormData } =
-  formSlice.actions;
+export const { setSignUpformdata } = formSlice.actions;
 export default formSlice.reducer;

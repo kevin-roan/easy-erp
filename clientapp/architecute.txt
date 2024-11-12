@@ -1,0 +1,29 @@
+### Signup Process
+After sucessfull signup with auth0 the user should create an account where they would
+be asked for
+    1. User Name , email (Screen 1)
+    2. Create a workspace (WorkspaceName,Participants[]) (Screen 2)
+    3. Create a team in that workspace (TeamName,TeamType) (Screen 3)
+
+All there data shall sent to the api; `api/v1/sign-up`
+
+Later on the controller will create a new user profile, workspace collection and team collection.
+
+@1. Create a user profile
+  With the username and useremail create a new user doc. upon creating it should return the 
+  userId to the controller, 
+@2. Create a workspace with that id.
+  With the userId and workspacename,particiapts list create a workspace where the owner id userId.
+  It should return the workspaceId back to the controller.
+@3. Create team in that workspace, with workspaceId
+  TeamName, and TeamType can be used create a new team with all the details including the workspaceName
+  and || or workspaceId.
+
+
+After the signup process,the user can again create workspaces, teams as much as they want, 
+but for that need use different api endpoints like, /workspace , /team etc.
+
+PROS:
+
+  1. Reduced api calls (faster signup process)
+  2. Less complex than using nested api calls and waiting for params like workspaceId, and workspaceName.

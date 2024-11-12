@@ -7,16 +7,14 @@ import { Button } from "react-native-paper";
 import { router } from "expo-router";
 import { useAuth0 } from "react-native-auth0";
 import { useDispatch } from "react-redux";
-import { setProfileFromData } from "@/redux/reducers/formSlice";
-import { useState } from "react";
-import { createNewProfile } from "@/services/createProfile";
+import { setSignUpformdata } from "@/redux/reducers/formSlice";
 
 const CreateProfile = () => {
   const { user } = useAuth0();
   const dispatch = useDispatch();
 
   const handleTextChange = (text: string) => {
-    dispatch(setProfileFromData({ name: text, email: user?.email }));
+    dispatch(setSignUpformdata({ name: text, email: user?.email }));
   };
   const handleSubmit = () => {
     router.push("/screens/onboarding/create_workspace");

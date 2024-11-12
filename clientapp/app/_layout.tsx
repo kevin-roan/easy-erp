@@ -57,7 +57,7 @@ const RootLayout = () => {
   // console.log("auth state:", authState);
 
   useEffect(() => {
-    if (authState && !isLoading) {
+    if (authState && !isLoading && authState.isActive) {
       router.replace("/(tabs)");
     }
   }, [authState]);

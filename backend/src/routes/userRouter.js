@@ -3,6 +3,12 @@ const addNewUser = require("../controllers/userController");
 
 const router = express.Router();
 
+router.post("/sign-up", async (req, res) => {
+  const userData = req.body;
+  console.log("User data from signup ", userData);
+  res.end();
+});
+
 router.post("/", async (req, res) => {
   const userData = req.body;
   console.log("userdata ", userData);

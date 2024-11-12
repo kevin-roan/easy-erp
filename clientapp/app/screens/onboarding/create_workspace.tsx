@@ -1,11 +1,9 @@
-import { setWorkspaceFormData } from "@/redux/reducers/formSlice";
+import { setSignUpformdata } from "@/redux/reducers/formSlice";
 import React from "react";
 import { TextInput } from "react-native-paper";
 import { Button, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch } from "react-redux";
-import { createNewProfile } from "@/services/createProfile";
-import createWorkspace from "@/services/createWorkspace";
 import { useAuth0 } from "react-native-auth0";
 import { useAuth } from "@/app/context/AuthContext";
 import { router } from "expo-router";
@@ -18,12 +16,8 @@ const create_workspace = () => {
   const dispatch = useDispatch();
   const handleTextChange = (text: string) => {
     dispatch(
-      setWorkspaceFormData({
+      setSignUpformdata({
         workspaceName: text,
-        owner: {
-          userName: user?.email,
-          userEmail: user?.email,
-        },
       }),
     );
   };

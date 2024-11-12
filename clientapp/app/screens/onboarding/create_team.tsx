@@ -1,14 +1,14 @@
 import { SafeAreaView } from "react-native";
 import { Text, Button, TextInput } from "react-native-paper";
 import { useDispatch } from "react-redux";
-import { setTeamFormData } from "@/redux/reducers/formSlice";
+import { setSignUpformdata } from "@/redux/reducers/formSlice";
 import React from "react";
 
 const create_team = () => {
   const dispatch = useDispatch();
   const handleTextChange = (text) => {
     dispatch(
-      setTeamFormData({
+      setSignUpformdata({
         teamName: text,
       }),
     );
