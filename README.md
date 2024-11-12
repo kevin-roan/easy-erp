@@ -18,6 +18,13 @@ EasyERP simplifies your workflow by bringing project management, planning, and r
 
 With **EasyERP**, make project success your new normal! 🏆
 
+Auth Architecture
+![image](https://github.com/user-attachments/assets/14b22757-0744-40be-954e-01e71a5ab84e)
+
+Workflow Architecture
+![image](https://github.com/user-attachments/assets/de0e529f-cda2-41c8-8e8a-ed1edb7ff5c0)
+
+
 ##### Tools/Languages Used
 
     1. Expo
