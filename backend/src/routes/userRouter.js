@@ -1,12 +1,20 @@
 const express = require("express");
 const addNewUser = require("../controllers/userController");
+const signupUser = require("../controllers/signupController");
 
 const router = express.Router();
 
 router.post("/sign-up", async (req, res) => {
   const userData = req.body;
   console.log("User data from signup ", userData);
-  res.end();
+  // create workspace
+  // create team
+  // append team to workspace
+  // create user
+  // appned user info to workspace as owner details
+
+  const result = await signupUser();
+  console.log("retured result ", result);
 });
 
 router.post("/", async (req, res) => {

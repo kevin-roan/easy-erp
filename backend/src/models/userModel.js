@@ -6,6 +6,11 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true },
     avatar: { type: String, required: false },
     status: { type: String, required: false, default: "Invited" }, // invited or active
+    // device token is removed, use redis for storing exponent tokens.
+    workspaceId: {
+      type: mongoose.Schema.Types.ObjectId, // after the workspace creation
+      required: false,
+    },
   },
   { timestamps: true },
 );
