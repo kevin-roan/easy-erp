@@ -39,5 +39,6 @@ Workflow Architecture
     11. Firebase Admin SDK ( For sending push notifications to physical devices ")
     12. React-native-reanimated (Micro interactions and Animations)
     13. Redux, Redux-Thunk
+    14. Redis (For storing device tokens for push notifications )
 
 ---
