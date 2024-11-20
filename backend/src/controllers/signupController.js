@@ -1,3 +1,4 @@
+const Organization = require("../models/organizationModel");
 const User = require("../models/userModel");
 const { addOrganization } = require("./organizationController");
 const { createTeam } = require("./teamController");
@@ -46,7 +47,28 @@ const signupUser = async (userData) => {
   if (team.status) {
     console.log("Created team", team.result);
   }
+
   // set the team id to workspace doc as an array
+  const updateWorkspaceWithTeamId = await Organization.updateOne(
+    { _id: workspace.result._id },
+    {
+      $push: {
+        teams: {
+          teamId: team.result._id,
+          teamName: team.result.teamName,
+        },
+      },
+    },
+  );
+
+  console.log("team name from result", team.result.teamName);
+
+  if (updateWorkspaceWithTeamId) {
+    console.log(
+      "updated the workspace with the team ID",
+      updateWorkspaceWithTeamId,
+    );
+  }
 };
 
 module.exports = signupUser;

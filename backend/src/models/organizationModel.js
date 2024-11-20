@@ -1,17 +1,20 @@
 const mongoose = require("mongoose");
 
 // Define the schema for a team
-const teamSchema = new mongoose.Schema({
-  teamId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: false,
-    auto: true, // Automatically generate an ObjectId
+const teamSchema = new mongoose.Schema(
+  {
+    teamId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      auto: true, // Automatically generate an ObjectId
+    },
+    teamName: {
+      type: String,
+      required: false,
+    },
   },
-  teamName: {
-    type: String,
-    required: false,
-  },
-});
+  { _id: false }, // disable auto id for embedded team docs
+);
 
 // Define the main organization schema
 const organizationSchema = new mongoose.Schema({
