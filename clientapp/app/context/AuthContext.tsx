@@ -19,13 +19,13 @@ export const AuthProvider = ({ children }: any) => {
   const [authState, setAuthState] = useState<{
     token: string | null;
     authenticated: boolean | null;
-    isActive: boolean | null;
     userInfo: string | null;
+    isActive: boolean | null;
   }>({
     token: null,
     authenticated: null,
-    isActive: null,
     userInfo: null,
+    isActive: true,
   });
 
   // auth0 stuff
@@ -138,12 +138,10 @@ export const AuthProvider = ({ children }: any) => {
       console.log("result", result);
       if (!result.isExists) {
         console.log("New User");
-        setAuthState((prevData) => ({ ...prevData, isActive: false }));
         router.push("/screens/onboarding/create_profile");
       } else {
         console.log("Existing user details", result);
         // store the userdata in async storage
-        setAuthState((prevData) => ({ ...prevData, isActive: true }));
         storeUserData(result.data);
         router.replace("/(tabs)");
       }

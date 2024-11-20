@@ -1,14 +1,17 @@
-const Organization = require("../models/organizationSchema");
+const Organization = require("../models/organizationModel");
 
 // add an organization
 const addOrganization = async (orgData) => {
-  console.log("log from the controller.");
   try {
     const organization = new Organization(orgData);
     const savedOrganization = await organization.save();
     if (savedOrganization) {
       console.log("created new organization");
-      return { status: true, message: "Created new Organization" };
+      return {
+        status: true,
+        message: "Created new Organization",
+        result: savedOrganization,
+      };
     }
   } catch (error) {
     console.error("Error creating organization", error);

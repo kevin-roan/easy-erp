@@ -54,11 +54,13 @@ export default function Layout() {
 
 const RootLayout = () => {
   const { authState, isLoading } = useAuth(); // Make sure `isLoading` is implemented in AuthContext to track auth status
-  // console.log("auth state:", authState);
 
   useEffect(() => {
-    if (authState && !isLoading && authState.isActive) {
+    if (authState && !isLoading) {
       router.replace("/(tabs)");
+      if (authState.userInfo === null) {
+        router.replace("/screens/onboarding/create_profile");
+      }
     }
   }, [authState]);
 

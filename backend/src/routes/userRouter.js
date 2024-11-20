@@ -7,14 +7,7 @@ const router = express.Router();
 router.post("/sign-up", async (req, res) => {
   const userData = req.body;
   console.log("User data from signup ", userData);
-  // create workspace
-  // create team
-  // append team to workspace
-  // create user
-  // appned user info to workspace as owner details
-
-  const result = await signupUser();
-  console.log("retured result ", result);
+  await signupUser(userData);
 });
 
 router.post("/", async (req, res) => {

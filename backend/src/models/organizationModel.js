@@ -4,12 +4,12 @@ const mongoose = require("mongoose");
 const teamSchema = new mongoose.Schema({
   teamId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
+    required: false,
     auto: true, // Automatically generate an ObjectId
   },
   teamName: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 
@@ -20,6 +20,10 @@ const organizationSchema = new mongoose.Schema({
     required: true,
   },
   owner: {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
     userName: {
       type: String,
       required: true,
@@ -29,16 +33,16 @@ const organizationSchema = new mongoose.Schema({
       required: true,
     },
   },
-  status: {
-    type: String,
-    enum: ["Active", "Inactive"],
-    default: "Inactive",
-  },
+  // status: {
+  //   type: String,
+  //   enum: ["Active", "Inactive"],
+  //   default: "Inactive",
+  // },
   teams: [teamSchema],
   participants: [
     (email = {
       type: String,
-      required: true,
+      required: false,
     }),
   ],
 });

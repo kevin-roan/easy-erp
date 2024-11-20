@@ -9,7 +9,7 @@ const signUp = async () => {
 
   try {
     const response = await axios.post(
-      "http://192.168.0.198/api/v1/user/signup",
+      "http://192.168.0.198:8000/api/v1/user/sign-up",
       signUpData,
     );
     if (response.status === 201) {
@@ -24,7 +24,7 @@ const signUp = async () => {
       Alert.alert("Something is wrong on our end");
     }
   } catch (error) {
-    console.error("Error");
+    console.error("Error", error);
     Alert.alert("Error creating profile try again later");
   }
 };

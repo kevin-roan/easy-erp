@@ -1,11 +1,12 @@
 const User = require("../models/userModel");
 
 const addNewUser = async (userData) => {
-  const { email } = userData;
+  const { email, name } = userData;
   console.log("profile data", userData);
   try {
     const queryUser = await User.findOne({ email });
     if (queryUser) {
+      console.log("Conlict with existing user");
       return {
         status: true,
         message: "User already exists",
@@ -13,7 +14,7 @@ const addNewUser = async (userData) => {
         data: queryUser,
       };
     } else {
-      if (userData.name) {
+      if (name) {
         //only create a user if there is name in params
         const newUser = new User(userData);
         const savedUser = await newUser.save();

@@ -20,10 +20,10 @@ async function connectDB() {
       console.log(cls.yellow("mongodb disconnected"));
     });
     // redis
-    client.on("error", (err) => console.log("Redis Client Error", err));
-    await client.connect();
+    // client.on("error", (err) => console.log("Redis Client Error", err));
+    // await client.connect();
   } catch (error) {
-    console.error(cls.red("Error connecting to monogbdb", error));
+    console.error(cls.red("Error connecting to DB", error));
   }
 }
 

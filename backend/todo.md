@@ -9,4 +9,8 @@
 
 # TODO;
 
-create schema for workspaces
+Current status,
+
+- Users can login or signup with auth0
+- if a user is already present in the databse, (verify user ) fetch the userinfor the the localstorage
+- If doesn't exists a singup controller is in place to create a user ,workspace,team

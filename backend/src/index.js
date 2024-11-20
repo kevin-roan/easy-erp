@@ -25,6 +25,12 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  console.log(
+    "----------------------------------------------------------------------------------------------",
+  );
+  next();
+});
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 // app.use(auth(config));
