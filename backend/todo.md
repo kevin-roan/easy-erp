@@ -14,3 +14,6 @@ Current status,
 - Users can login or signup with auth0
 - if a user is already present in the databse, (verify user ) fetch the userinfor the the localstorage
 - If doesn't exists a singup controller is in place to create a user ,workspace,team
+- After signup, the server will return everything from workspace, to teams and user
+  informatoins to the client application and it should be stored in the asyncstorage
+  of the client application.

@@ -36,6 +36,7 @@ export default function Layout() {
   if (!loaded && error) {
     return null;
   }
+
   return (
     <Provider store={store}>
       <Auth0Provider
@@ -58,9 +59,10 @@ const RootLayout = () => {
   useEffect(() => {
     if (authState && !isLoading) {
       router.replace("/(tabs)");
-      if (authState.userInfo === null) {
-        router.replace("/screens/onboarding/create_profile");
-      }
+      // create profile removed for educational purpose
+      // if (authState.userInfo === null) {
+      //   router.replace("/screens/onboarding/create_profile");
+      // }
     }
   }, [authState]);
 

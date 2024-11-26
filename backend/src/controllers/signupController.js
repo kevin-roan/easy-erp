@@ -69,6 +69,7 @@ const signupUser = async (userData) => {
       updateWorkspaceWithTeamId,
     );
   }
+  // combine everything and send it to the client application.
 };
 
 module.exports = signupUser;

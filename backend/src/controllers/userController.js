@@ -1,3 +1,4 @@
+const Organization = require("../models/organizationModel");
 const User = require("../models/userModel");
 
 const addNewUser = async (userData) => {
@@ -6,12 +7,18 @@ const addNewUser = async (userData) => {
   try {
     const queryUser = await User.findOne({ email });
     if (queryUser) {
-      console.log("Conlict with existing user");
+      console.log("Conflict with existing user");
+      const workspace = await Organization.findOne({
+        "owner.userId": queryUser._id,
+      });
       return {
         status: true,
         message: "User already exists",
         isExists: true,
-        data: queryUser,
+        data: {
+          userData: queryUser,
+          workspaceData: workspace,
+        },
       };
     } else {
       if (name) {

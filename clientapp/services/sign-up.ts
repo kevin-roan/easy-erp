@@ -12,6 +12,7 @@ const signUp = async () => {
       "http://192.168.0.198:8000/api/v1/user/sign-up",
       signUpData,
     );
+    console.log("tried registration", response);
     if (response.status === 201) {
       // true if user is created
       Alert.alert("Created profile successfully");

@@ -140,7 +140,7 @@ export const AuthProvider = ({ children }: any) => {
         console.log("New User");
         router.push("/screens/onboarding/create_profile");
       } else {
-        console.log("Existing user details", result);
+        console.log("Existing user details from server", result);
         // store the userdata in async storage
         storeUserData(result.data);
         router.replace("/(tabs)");
