@@ -10,6 +10,7 @@ const router = express.Router();
 
 // get all tasks
 router.get("/", async (req, res) => {
+  console.log("workspce id for teamdata", req.params);
   try {
     const result = await viewAlltasks();
     if (result.status) {

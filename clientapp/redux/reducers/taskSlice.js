@@ -3,13 +3,21 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 // async thunk for fetching tasks from the api
-export const fetchTasksAll = createAsyncThunk("tasks/fetchTasks", async () => {
-  const response = await axios.get("http://192.168.0.198:8000/api/v1/tasks");
+export const fetchTasksAll = createAsyncThunk(
+  "tasks/fetchTasks",
+  async (workspaceId) => {
+    const response = await axios.get("http://192.168.0.198:8000/api/v1/tasks", {
+      params: {
+        workspaceId,
+      },
+    });
+    console.log("Tasks", response.data);
 
-  // store tasks to asyncstorage for offline use.
-  // await AsyncStorage.setItem("@tasks", JSON.stringify(response.data.result));
-  return response.data.result; // returns the tasks data
-});
+    // store tasks to asyncstorage for offline use.
+    // await AsyncStorage.setItem("@tasks", JSON.stringify(response.data.result));
+    return response.data.result; // returns the tasks data
+  },
+);
 
 // async thunk for updating the tasks
 

@@ -5,9 +5,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fetchTasksAll, getTasks } from "@/redux/reducers/taskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 export default function Tab() {
   const dispatch = useDispatch();
+
+  const { authState } = useAuth();
+  const workspaceId = authState.userInfo.userData.workspaceId;
+
   const tasks = useSelector((state) => state.tasks.value); // Access the tasks array from the state
   const filteredTasks = useSelector((state) =>
     state.tasks.value.filter((task) => !task.isAccepted),
@@ -17,8 +22,8 @@ export default function Tab() {
 
   useEffect(() => {
     // this will trigger the thunk middleware for fetching the taks from api
-    dispatch(fetchTasksAll());
-  }, []);
+    dispatch(fetchTasksAll(workspaceId));
+  }, [workspaceId]);
 
   return (
     <SafeAreaView style={styles.container}>
