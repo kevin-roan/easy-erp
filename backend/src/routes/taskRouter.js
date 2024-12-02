@@ -10,9 +10,9 @@ const router = express.Router();
 
 // get all tasks
 router.get("/", async (req, res) => {
-  console.log("workspce id for teamdata", req.params);
+  const workspaceId = req.query;
   try {
-    const result = await viewAlltasks();
+    const result = await viewAlltasks(workspaceId);
     if (result.status) {
       return res.status(200).json(result);
     } else {

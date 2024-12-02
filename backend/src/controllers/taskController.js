@@ -29,7 +29,7 @@ const deleteTaskById = async (taskId) => {
   }
 };
 
-const viewAlltasks = async () => {
+const viewAlltasks = async (workspaceId) => {
   try {
     const result = await Task.find();
     return { status: true, result: result };
