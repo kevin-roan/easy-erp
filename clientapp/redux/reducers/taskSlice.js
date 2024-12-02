@@ -6,6 +6,7 @@ import axios from "axios";
 export const fetchTasksAll = createAsyncThunk(
   "tasks/fetchTasks",
   async (workspaceId) => {
+    console.log("workspace id", workspaceId);
     const response = await axios.get("http://192.168.0.198:8000/api/v1/tasks", {
       params: {
         workspaceId,

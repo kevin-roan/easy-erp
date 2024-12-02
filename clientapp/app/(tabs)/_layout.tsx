@@ -39,7 +39,7 @@ export default function TabLayout() {
         name="viewtasks"
         options={{
           headerShown: false,
-          title: "Upcoming",
+          title: "My Tasks",
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="level-up" color={color} />
           ),
