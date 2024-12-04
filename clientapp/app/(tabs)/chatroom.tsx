@@ -13,12 +13,15 @@ export default function Tab() {
         <TextInput placeholder="Search" style={styles.search_bar_text} />
       </View>
       <ScrollView>
-        <Chatcard />
+        {/* 
         <Button
           onPress={() => router.push("/screens/onboarding/create_workspace")}
         >
           Create Workspace
         </Button>
+ */}
+
+        <Chatcard />
       </ScrollView>
     </SafeAreaView>
   );

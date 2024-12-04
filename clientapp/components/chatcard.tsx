@@ -1,21 +1,25 @@
+import { useNavigation } from "@react-navigation/native";
+import { router } from "expo-router";
 import React from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 
 const Chatcard = () => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => router.push("/screens/messaging")}
+    >
       <Image
         source={require("../assets/images/home.png")}
         style={styles.chat_image}
       />
       <View style={{ flex: 1 }}>
         <View style={styles.chat_header}>
-          <Text style={styles.chat_header_title}>Company Name</Text>
+          <Text style={styles.chat_header_title}>DropDev Pvt.LTP</Text>
           <Text style={styles.chat_last_message_time}>12:30 PM</Text>
         </View>
         <Text style={styles.chat_last_message}>
-          Due to the management switch we will cutting of the salary of those
-          developers
+          This is a test message from DropDev Pvt.Ltd.
         </Text>
       </View>
     </TouchableOpacity>

@@ -31,7 +31,7 @@ export default function Header() {
         <Image
           alt="user image"
           source={{
-            uri: "https://wallpapers.com/images/hd/anime-profile-picture-jioug7q8n43yhlwn.jpg",
+            uri: "https://static.vecteezy.com/system/resources/previews/002/002/403/non_2x/man-with-beard-avatar-character-isolated-icon-free-vector.jpg",
           }}
           height={30}
           width={30}

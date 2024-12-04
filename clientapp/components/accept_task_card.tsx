@@ -11,8 +11,10 @@ import { useState, useEffect } from "react";
 import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
 import { useDispatch } from "react-redux";
 import { updateTaskById } from "@/redux/reducers/taskSlice";
+import { Ionicons } from "@expo/vector-icons";
+import Badge from "./badge";
 
-const AcceptTaskCard = ({ title, desc, id }) => {
+const AcceptTaskCard = ({ title, priority, date, desc, id }) => {
   const paddingBottom = useSharedValue(10);
 
   useEffect(() => {
@@ -22,16 +24,24 @@ const AcceptTaskCard = ({ title, desc, id }) => {
   return (
     <Animated.View style={[styles.container, { paddingBottom }]} key={id}>
       <View style={{ flexDirection: "row", alignItems: "stretch", gap: 20 }}>
-        <Image
-          source={require("../assets/images/dashboard.png")}
-          style={{ height: 40, width: 40, marginTop: 5 }}
-        />
         <View>
           <Text style={styles.taskheading}>{title}</Text>
           <Text style={styles.taskdesc}>{desc}</Text>
         </View>
       </View>
+      <Badge priority={priority} />
       <View style={styles.buttoncontainer}>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 10,
+          }}
+        >
+          <Ionicons name="calendar-clear-outline" />
+          <Text style={styles.date}>{date}</Text>
+        </View>
         <CardButton id={id} />
       </View>
     </Animated.View>
@@ -46,7 +56,7 @@ const CardButton = ({ id }) => {
     if (!isAccepted) {
       try {
         setIsAccepted(true);
-        dispatch(updateTaskById(id));
+        // dispatch(updateTaskById(id));
         Vibration.vibrate(50);
       } catch (error) {
         console.error("Error updating task:", error);
@@ -78,10 +88,12 @@ const CardButton = ({ id }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 17,
-    backgroundColor: "#ECF4FD",
+    padding: 10,
+    backgroundColor: "white",
     margin: 10,
-    borderRadius: 20,
+    borderRadius: 8,
+    borderWidth: 0.2,
+    shadowColor: "#535657",
   },
   cardbutton: {
     borderRadius: 10,
@@ -98,16 +110,21 @@ const styles = StyleSheet.create({
   buttoncontainer: {
     flexDirection: "row",
     gap: 10,
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 10,
   },
   taskheading: {
-    color: "#646e73",
+    color: "#000a0a",
     fontSize: 20,
   },
   taskdesc: {
     color: "#5E5E5E",
     fontSize: 17,
-    paddingVertical: 10,
+  },
+  date: {
+    fontSize: 16,
+    color: "#7F818F",
   },
 });
 
