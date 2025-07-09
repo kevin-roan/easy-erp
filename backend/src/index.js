@@ -12,6 +12,7 @@ const { auth } = require("express-openid-connect");
 const { config } = require("./middlewares/auth.js");
 const { requiresAuth } = require("express-openid-connect");
 const jwtCheck = require("./middlewares/verifyJwt.js");
+const session = require("express-session");
 
 const port = process.env.DEV_PORT || 8001;
 
@@ -32,8 +33,17 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "your-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false }, // set to true if using HTTPS
+  }),
+);
+
 // auth router attaches /login, /logout, and /callback routes to the baseURL
-// app.use(auth(config));
+app.use(auth(config));
 
 // =============================== MIDDLEWARES END ======================================
 
