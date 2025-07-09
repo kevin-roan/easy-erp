@@ -1,0 +1,25 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - /app/node_modules # Prevent host and container node_modules conflict
+    depends_on:
+      - mongo
+    environment:
+      - SESSION_SECRET=your-session-secret
+      - DEV_PORT=8000
+    command: npm run dev
+
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    # No ports section, since we keep Mongo internal to Docker network for now
+
+volumes:
+  mongo-data:
